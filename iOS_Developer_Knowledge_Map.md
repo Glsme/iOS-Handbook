@@ -1,0 +1,1447 @@
+# iOS 개발자 지식 맵
+
+실무, 면접, 아키텍처 설계, 운영, 배포 관점에서 iOS 개발자가 알아야 할 지식을 최대한 빠짐없이 분류한 키워드형 정리 문서다.
+
+## 사용 방법
+
+- 모르는 항목을 찾기 위한 색인으로 사용
+- 학습 로드맵 체크리스트로 사용
+- 팀 온보딩, 면접 준비, 기술 평가 기준으로 사용
+
+---
+
+## 1. 컴퓨터 공학 기초
+
+- 자료구조
+  - 선형 구조
+    - 배열
+    - 연결 리스트
+    - 스택
+    - 큐
+    - 덱
+  - 비선형 구조
+    - 트리
+    - 힙
+    - 그래프
+  - 해시 기반
+    - 해시 테이블
+    - 셋
+  - 우선순위 큐
+- 알고리즘
+  - 정렬
+  - 탐색
+  - 이분 탐색
+  - DFS
+  - BFS
+  - 재귀
+  - 분할 정복
+  - 동적 계획법
+  - 그리디
+  - 백트래킹
+  - 문자열 처리
+- 복잡도
+  - 시간 복잡도
+  - 공간 복잡도
+  - Big-O
+- 메모리 구조
+  - 스택 메모리
+  - 힙 메모리
+  - 코드 영역
+  - 데이터 영역
+- 운영체제 기초
+  - 프로세스
+  - 스레드
+  - 동시성
+  - 병렬성
+  - CPU 스케줄링
+  - 캐시 지역성
+  - 동기화
+    - 락
+    - 데드락
+    - 레이스 컨디션
+    - 원자성
+- 네트워크 기초
+  - OSI 7계층
+  - TCP/IP
+  - DNS
+  - HTTP
+  - HTTPS
+  - TLS
+- 데이터 표현
+  - 직렬화
+  - 인코딩
+  - UTF-8
+  - JSON
+  - 바이너리 포맷
+
+## 2. Swift 언어 기초
+
+- 변수와 상수
+  - 변수
+  - 상수
+  - 타입 추론
+  - 기본 타입
+- Optional
+  - Optional binding
+  - guard
+  - if let
+  - nil-coalescing
+- 함수
+  - 파라미터 레이블
+  - inout
+  - 반환 타입
+  - 튜플
+- 클로저
+  - trailing closure
+  - escaping closure
+  - autoclosure
+- 고차 함수
+  - map
+  - filter
+  - reduce
+  - compactMap
+  - flatMap
+- 제어 흐름
+  - switch
+  - where
+  - for-in
+  - while
+  - defer
+- 타입
+  - 열거형
+    - 연관값
+    - raw value
+  - 구조체
+  - 클래스
+  - 값 타입
+  - 참조 타입
+- 메서드와 초기화
+  - 메서드
+  - mutating
+  - designated initializer
+  - convenience initializer
+  - deinit
+- 프로퍼티
+  - 저장 프로퍼티
+  - 연산 프로퍼티
+  - 프로퍼티 옵저버
+  - lazy
+  - static
+  - class property
+  - 서브스크립트
+- 접근 제어
+  - open
+  - public
+  - internal
+  - fileprivate
+  - private
+- 프로토콜과 확장
+  - extension
+  - protocol
+  - protocol extension
+  - Swift 핵심 프로토콜
+    - [[Equatable]]
+    - [[Hashable]]
+    - Comparable
+    - Identifiable
+    - Codable
+    - CustomStringConvertible
+    - CustomDebugStringConvertible
+    - Sequence
+    - IteratorProtocol
+    - Collection
+    - RawRepresentable
+    - CaseIterable
+    - ExpressibleByStringLiteral
+    - ExpressibleByArrayLiteral
+    - ExpressibleByDictionaryLiteral
+- 제네릭과 타입 추상화
+  - associatedtype
+  - generic
+  - where clause
+  - opaque type
+  - existentials
+  - any
+  - some
+- 에러 처리
+  - Result
+  - Error
+  - throws
+  - rethrows
+  - try
+  - try?
+  - try!
+
+## 3. Swift 심화
+
+- 메모리 관리
+  - ARC
+  - strong reference
+  - weak reference
+  - unowned reference
+  - retain cycle
+  - capture list
+  - copy-on-write
+  - 메모리 최적화
+- 타입 시스템과 런타임
+  - 메타타입
+  - reflection
+  - Mirror
+  - 디스패치
+    - dynamic dispatch
+    - static dispatch
+    - witness table
+    - vtable
+    - protocol witness
+  - generics specialization
+  - ABI
+  - module
+  - package
+- Swift Concurrency
+  - concurrency model
+  - actor isolation
+  - Sendable
+  - @MainActor
+  - global actor
+  - task cancellation
+  - structured concurrency
+  - async let
+  - task group
+  - continuations
+  - async sequence
+  - Swift 6 strict concurrency
+  - complete concurrency checking
+- 메타프로그래밍
+  - property wrapper
+  - result builder
+  - macro
+    - freestanding macro
+    - attached macro
+  - custom attribute
+- Key Path
+  - key path
+  - writable key path
+  - dynamic member lookup
+- Ownership
+  - ownership 개념
+  - borrowing 개념
+  - move only 관련 흐름
+  - noncopyable types (~Copyable)
+- 상호운용성
+  - Objective-C bridging
+  - C interop
+- Swift Evolution
+  - function builder 역사
+  - typed throws
+
+## 4. Xcode와 개발 환경
+
+- Xcode 구조
+  - Project
+  - Workspace
+  - Scheme
+  - Target
+  - Build Settings
+  - Build Phases
+  - xcconfig
+  - Info.plist
+  - entitlements
+  - asset catalog
+  - launch screen
+- 패키지 관리
+  - SPM
+    - Package.swift
+    - package product
+    - package target
+    - package resource
+    - package plugin
+    - binaryTarget
+  - CocoaPods
+  - Carthage
+  - dependency resolution
+- 빌드 산출물
+  - DerivedData
+  - simulator
+  - device build
+  - archive
+  - export options
+- 라이브러리와 링킹
+  - XCFramework
+  - static library
+  - dynamic framework
+  - static linking
+  - dynamic linking
+  - linker
+  - dead code stripping
+  - symbol visibility
+  - module stability
+  - library evolution
+- 코드 서명
+  - code signing
+  - provisioning profile
+  - certificate
+  - automatic signing
+  - manual signing
+- 빌드 설정
+  - build configuration
+  - Debug
+  - Release
+  - environment variable
+  - launch argument
+- 디버깅 도구
+  - breakpoints
+  - symbolic breakpoint
+  - exception breakpoint
+  - Instruments 연동
+  - LLDB
+  - Console
+  - Organizer
+- 기타 도구
+  - Test Plan
+  - localization catalog
+  - DocC
+  - snippets
+  - templates
+
+## 5. iOS 앱 구조와 생명주기
+
+- App lifecycle
+  - UIApplication
+  - UIApplicationDelegate
+  - UIScene
+  - UISceneDelegate
+  - scene lifecycle
+  - process lifecycle
+- 앱 상태
+  - foreground
+  - background
+  - inactive
+  - suspended
+  - terminated
+- 앱 실행
+  - app launch
+  - cold start
+  - warm start
+  - deep link launch
+  - URL scheme
+  - Universal Link
+  - state restoration
+- 백그라운드 실행
+  - background task
+  - background fetch
+  - background processing
+  - push-triggered launch
+- 확장 생명주기
+  - app extension lifecycle
+  - widget lifecycle
+
+## 6. UIKit 기초
+
+- 핵심 클래스
+  - UIResponder
+  - UIView
+  - UIViewController
+  - UIWindow
+- 좌표와 레이아웃
+  - coordinate system
+  - frame
+  - bounds
+  - center
+  - layout cycle
+  - drawing cycle
+  - run loop
+- Interface Builder
+  - target-action
+  - IBAction
+  - IBOutlet
+  - nib
+  - xib
+  - storyboard
+  - segues
+- 뷰 컨트롤러 구성
+  - containment
+  - child view controller
+  - presentation
+  - modal
+  - navigation controller
+  - tab bar controller
+  - split view controller
+  - page view controller
+- 데이터 표시 뷰
+  - scroll view
+  - table view
+  - collection view
+  - diffable data source
+  - compositional layout
+  - stack view
+- 사용자 입력과 애니메이션
+  - gesture recognizer
+  - animation
+  - transition
+- Auto Layout
+  - constraint
+  - intrinsic content size
+  - hugging
+  - compression resistance
+  - safe area
+- 적응형 UI
+  - trait collection
+  - size class
+  - dark mode 대응
+  - Dynamic Type 대응
+
+## 7. SwiftUI
+
+- 앱 구조
+  - App protocol
+  - Scene
+  - View
+  - body
+  - declarative UI
+  - state-driven rendering
+- 상태 관리 프로퍼티 래퍼
+  - @State
+  - @Binding
+  - @StateObject
+  - @ObservedObject
+  - @EnvironmentObject
+  - @Environment
+  - @Bindable
+  - @Observable
+  - @AppStorage
+  - @SceneStorage
+  - @FetchRequest
+  - @Query
+  - Observation framework
+- 렌더링과 성능
+  - identity
+  - diffing
+  - EquatableView
+- 뷰 구성
+  - ViewBuilder
+  - modifier
+  - custom modifier
+  - preference key
+  - geometry reader
+  - layout protocol
+  - alignment guide
+- 내비게이션과 모달
+  - navigation stack
+  - navigation path
+  - sheet
+  - fullScreenCover
+  - alert
+  - confirmationDialog
+- 리스트와 스크롤
+  - list
+  - LazyVStack
+  - LazyHStack
+  - grid
+  - scroll view
+  - containerRelativeFrame
+  - ScrollPosition
+- 생명주기와 이벤트
+  - onChange(of:)
+  - onAppear
+  - onDisappear
+  - scene phase
+  - task modifier
+- 입력과 인터랙션
+  - sensoryFeedback
+  - Inspector
+  - refreshable
+  - searchable
+  - toolbar
+  - commands
+  - menu
+  - share link
+  - focus state
+  - accessibility modifier
+- 애니메이션
+  - animation
+  - withAnimation
+  - matchedGeometryEffect
+  - transaction
+  - phase animator
+  - content transition
+- 캔버스와 타임라인
+  - timeline view
+  - canvas
+- UIKit 연동
+  - UIHostingController
+  - UIViewRepresentable
+  - UIViewControllerRepresentable
+  - interoperability with UIKit
+  - ui hosting
+- 프리뷰
+  - preview
+  - PreviewProvider 역사
+  - #Preview
+
+## 8. UI/UX와 디자인 시스템
+
+- 디자인 원칙
+  - HIG
+  - visual hierarchy
+  - discoverability
+  - affordance
+  - consistency
+- 디자인 토큰
+  - spacing system
+  - typography
+  - color system
+  - semantic color
+  - iconography
+  - SF Symbols
+- 인터랙션 디자인
+  - motion design
+  - micro interaction
+  - feedback
+  - haptics
+  - pointer interaction
+  - hover state
+- UI 상태
+  - empty state
+  - loading state
+  - error state
+  - skeleton UI
+- 사용자 흐름
+  - onboarding
+  - form design
+  - input validation
+- 적응형 레이아웃
+  - adaptive layout
+  - responsive layout
+  - orientation
+  - iPhone/iPad 대응
+  - Split View 대응
+  - Stage Manager 대응
+- 접근성 관련
+  - dark mode
+  - Dynamic Type
+  - accessibility contrast
+  - localization-friendly UI
+
+## 9. 아키텍처와 설계
+
+- 앱 아키텍처 패턴
+  - MVC
+  - MVVM
+  - MVVM-C
+  - MVP
+  - MVI
+  - VIPER
+  - Clean Architecture
+  - RIBs
+  - ReactorKit
+  - TCA
+- 모듈화
+  - modular architecture
+  - Micro Features Architecture
+  - Plugin Architecture
+  - feature module
+- 계층 분리
+  - domain layer
+  - data layer
+  - presentation layer
+- 의존성 관리
+  - dependency inversion
+  - dependency injection
+  - service locator
+  - composition root
+- 내비게이션 패턴
+  - coordinator pattern
+  - router
+  - flow controller
+- 상태 관리
+  - state management
+  - unidirectional data flow
+  - reducer
+  - side effect
+  - state machine
+- 설계 패턴
+  - repository pattern
+  - use case
+  - facade
+  - adapter
+  - builder
+  - factory
+- GoF 디자인 패턴
+  - 생성 패턴
+    - Singleton
+    - Prototype
+  - 구조 패턴
+    - Decorator
+    - Proxy
+    - Composite
+    - Bridge
+  - 행위 패턴
+    - Observer
+    - Strategy
+    - Command
+    - Chain of Responsibility
+    - Template Method
+    - Mediator
+    - Memento
+    - Iterator
+    - Visitor
+- iOS 특화 패턴
+  - Delegate pattern
+  - Data Source pattern
+  - Diffable Data Source pattern
+  - Target-Action pattern
+  - Responder Chain
+  - Notification pattern
+  - KVO
+- 모던 Swift 패턴
+  - Protocol Witness pattern
+  - Phantom Type
+  - Type Erasure
+  - Namespace pattern
+  - Configuration pattern
+  - Environment pattern
+  - Middleware pattern
+- 설계 원칙
+  - protocol-oriented programming
+  - SOLID
+  - KISS
+  - DRY
+  - YAGNI
+  - clean code
+  - separation of concerns
+  - domain modeling
+  - error propagation design
+
+## 10. 비동기 처리와 반응형 프로그래밍
+
+- 콜백 기반
+  - completion handler
+  - callback
+  - closure capture
+- GCD
+  - DispatchQueue
+  - serial queue
+  - concurrent queue
+  - QoS
+  - DispatchGroup
+  - DispatchSemaphore
+- Operation
+  - OperationQueue
+  - dependency chain
+- 스레드 안전
+  - thread confinement
+  - main thread
+  - UI thread safety
+- Swift Concurrency
+  - async/await
+  - Task
+  - TaskGroup
+  - AsyncSequence
+  - actor
+  - isolation
+  - cancellation
+  - priority
+  - detached task
+  - continuation
+- [[Combine]]
+  - [[Publisher]]
+  - Subscriber
+  - [[Subject]]
+    - [[Combine/Subject/CurrentValueSubject.md|CurrentValueSubject]]
+    - [[Combine/Subject/PassthroughSubject.md|PassthroughSubject]]
+  - AnyPublisher
+  - 구독
+    - sink
+    - assign
+  - 연산자
+    - debounce
+    - throttle
+    - merge
+    - zip
+    - combineLatest
+    - flatMap
+  - [[Publisher#^382016|eraseToAnyPublisher]]
+  - scheduler
+  - backpressure 개념
+- 기타 반응형
+  - RxSwift 개념 이해
+  - reactive stream 사고방식
+
+## 11. 네트워킹
+
+- URLSession
+  - URL
+  - URLRequest
+  - URLSession
+  - data task
+  - upload task
+  - download task
+  - background session
+  - URLSessionConfiguration
+- 캐싱
+  - URLCache
+  - cache policy
+  - HTTP caching
+  - Cache-Control
+  - ETag
+  - If-None-Match
+- 요청과 응답
+  - request timeout
+  - response handling
+  - HTTP method
+    - GET
+    - POST
+    - PUT
+    - PATCH
+    - DELETE
+  - status code
+  - header
+  - user agent
+  - content type
+- 인증과 세션
+  - authorization header
+  - cookie
+  - session
+  - token
+  - bearer token
+  - OAuth
+  - JWT
+  - refresh token
+  - PKCE
+  - auth retry flow
+- 페이지네이션
+  - cursor pagination
+  - offset pagination
+- 요청 형식
+  - multipart form-data
+- 안정성
+  - retry
+  - exponential backoff
+  - idempotency
+  - connectivity handling
+  - reachability
+  - network path monitor
+- 프로토콜
+  - HTTP/2
+  - HTTP/3
+  - REST API
+  - GraphQL
+  - WebSocket
+  - SSE
+  - gRPC 개념
+  - polling
+  - long polling
+- 직렬화
+  - Codable
+  - JSONDecoder
+  - JSONEncoder
+  - custom decoding
+  - snake_case conversion
+  - date decoding strategy
+  - ISO8601
+- API 설계
+  - API versioning
+  - URLProtocol
+  - request interceptor
+  - error mapping
+- 테스트와 보안
+  - mocking
+  - stubbing
+  - certificate pinning
+
+## 12. 데이터 저장과 영속성
+
+- 간단한 저장소
+  - UserDefaults
+  - Keychain
+- 파일 시스템
+  - FileManager
+  - sandbox
+  - document directory
+  - cache directory
+  - temporary directory
+  - plist
+  - JSON file storage
+- SQLite
+- Core Data
+  - NSManagedObject
+  - NSFetchRequest
+  - predicate
+  - sort descriptor
+  - faulting
+  - context
+  - background context
+  - NSPersistentContainer
+  - 마이그레이션
+    - lightweight migration
+    - manual migration
+- SwiftData
+  - ModelContainer
+  - ModelContext
+  - @Model
+  - relationship
+- 클라우드 동기화
+  - CloudKit sync
+- 기타 DB
+  - Realm 개념
+  - database normalization
+- 캐시 전략
+  - local cache
+  - offline-first
+  - cache invalidation
+  - eviction policy
+- 보안
+  - encryption at rest
+
+## 13. 보안과 개인정보
+
+- 네트워크 보안
+  - App Transport Security
+  - HTTPS only
+  - TLS handshake
+  - certificate pinning
+  - man-in-the-middle 대응
+- 코드 보안
+  - secure coding
+  - input validation
+  - output sanitization
+  - sensitive data handling
+- 인증과 생체 인식
+  - Keychain access control
+  - biometric protected secret
+  - Face ID
+  - Touch ID
+  - LocalAuthentication
+- 앱 보호
+  - jailbreak detection 개념
+  - runtime tampering 대응
+  - obfuscation 한계
+- 비밀 관리
+  - secret management
+  - API key 보호 한계
+  - token storage
+  - session hijacking 방지
+  - replay attack 개념
+- 프라이버시
+  - privacy manifest
+  - tracking transparency
+  - ATT
+  - App Store privacy nutrition label
+- 권한 관리
+  - permission rationale
+  - Contacts 권한
+  - Camera 권한
+  - Photo Library 권한
+  - Microphone 권한
+  - Location 권한
+  - Bluetooth 권한
+  - Calendar 권한
+  - notification 권한
+- 원칙
+  - least privilege
+  - data minimization
+  - GDPR 개념
+  - 개인정보보호법 대응 개념
+
+## 14. 성능 최적화
+
+- 앱 시작
+  - launch time
+  - first frame time
+- 렌더링 성능
+  - scroll performance
+  - frame drop
+  - jank
+  - offscreen rendering
+  - blending
+  - rasterization
+- 스레드 최적화
+  - main thread blocking
+  - background work offloading
+- 데이터 최적화
+  - lazy loading
+  - image decoding
+  - image caching
+  - prefetching
+  - batching
+  - diffing cost
+  - layout cost
+- 메모리 최적화
+  - memory footprint
+  - retain cycle
+  - leak
+  - allocation churn
+  - reuse
+  - cell reuse
+- Instruments
+  - Time Profiler
+  - Allocations
+  - Leaks
+  - Memory Graph
+  - Network
+  - Energy Log
+  - Core Animation
+- 로깅과 측정
+  - signpost
+  - os_log
+  - unified logging
+  - metric kit
+- 기타 지표
+  - hang detection 개념
+  - crash-free rate
+  - thermal 상태
+  - battery usage
+
+## 15. 디버깅과 문제 해결
+
+- 브레이크포인트
+  - breakpoint
+  - conditional breakpoint
+  - symbolic breakpoint
+- LLDB
+  - po
+  - p
+  - expression evaluation
+- 시각적 디버거
+  - view hierarchy debugger
+  - memory graph debugger
+  - thread debugger
+- 로깅
+  - console log
+  - os_log
+  - signpost
+- 방어적 코드
+  - assertion
+  - precondition
+  - fatalError
+- 문제 재현
+  - error reproduction
+  - minimal reproducible case
+  - binary search debugging
+  - feature flag isolation
+- 크래시 분석
+  - crash log
+  - dSYM
+  - symbolication
+  - exception type
+  - stack trace
+  - thread dump
+  - watchdog termination
+  - EXC_BAD_ACCESS
+  - zombie object
+- 기타
+  - race debugging
+  - network inspection
+  - proxy tool
+    - Charles
+    - Proxyman
+
+## 16. 테스트
+
+- 테스트 유형
+  - unit test
+  - integration test
+  - UI test
+  - snapshot test
+  - regression test
+  - smoke test
+  - end-to-end test
+- 테스트 프레임워크
+  - XCTest
+  - XCUITest
+  - Swift Testing framework
+    - @Test
+    - #expect
+    - @Suite
+- 테스트 구성
+  - test target
+  - async test
+  - expectation
+- 테스트 더블
+  - mock
+  - stub
+  - spy
+  - fake
+- 테스트 설계
+  - dependency injection for test
+  - deterministic test
+  - flakiness
+  - test fixture
+  - test data builder
+- 테스트 범위
+  - coverage
+  - boundary test
+  - edge case
+  - failure path test
+  - accessibility test
+  - performance test
+  - memory regression test
+- 자동화
+  - CI test automation
+
+## 17. 앱 서비스와 플랫폼 기능
+
+- 푸시 알림
+  - Push Notification
+  - APNs
+  - notification service extension
+  - notification content extension
+  - background push
+- 딥 링크
+  - deep link routing
+  - Universal Link
+- 위젯과 라이브 액티비티
+  - WidgetKit
+  - widget
+  - Interactive Widget
+  - Live Activity
+  - ActivityKit
+  - StandBy Mode 대응
+  - Control Center Widget
+- App Clip
+- Siri와 Shortcuts
+  - SiriKit
+  - Shortcuts
+- 검색과 연속성
+  - Spotlight indexing
+  - Core Spotlight
+  - Handoff
+- 앱 확장
+  - App Groups
+  - Share Extension
+  - Action Extension
+  - Notification Extension
+  - Intents Extension
+  - File Provider
+- 클라우드
+  - iCloud
+  - CloudKit
+- 인증
+  - Sign in with Apple
+  - authentication flow
+- 인앱 결제
+  - in-app purchase
+  - StoreKit
+  - StoreKit 2
+  - subscription
+  - introductory offer
+  - promotional offer
+  - receipt validation
+  - transaction verification
+  - family sharing
+  - App Store Server API 개념
+- 최신 기능
+  - TipKit
+  - Swift Charts
+  - PhotosPicker
+  - SharePlay
+  - GroupActivities
+
+## 18. 디바이스 기능과 Apple 프레임워크
+
+- 핵심 프레임워크
+  - Foundation
+  - UIKit
+  - SwiftUI
+  - Combine
+  - Observation
+- 데이터 프레임워크
+  - Core Data
+  - SwiftData
+- 그래픽과 미디어
+  - Core Animation
+  - Core Graphics
+  - Core Image
+  - AVFoundation
+  - Photos
+  - PhotoKit
+  - Metal
+  - SceneKit 개념
+  - SpriteKit 개념
+- AI와 비전
+  - Vision
+  - VisionKit
+  - Core ML
+  - Create ML 개념
+- AR
+  - ARKit
+  - RealityKit
+- 위치와 지도
+  - Core Location
+  - MapKit
+- 시스템 서비스
+  - EventKit
+  - Contacts
+  - HealthKit
+  - HomeKit
+- 하드웨어 연동
+  - Core Bluetooth
+  - ExternalAccessory
+  - Core NFC
+- 결제와 인증
+  - PassKit
+  - Wallet
+  - LocalAuthentication
+  - AuthenticationServices
+- 네트워크와 웹
+  - Network framework
+  - WebKit
+  - SafariServices
+- 알림과 통신
+  - StoreKit
+  - WidgetKit
+  - ActivityKit
+  - CallKit
+  - PushKit
+  - UserNotifications
+- 기타 프레임워크
+  - PencilKit
+  - PDFKit
+  - ReplayKit
+  - BackgroundTasks
+  - Accessibility framework
+  - AppIntents
+  - Translation framework
+  - MusicKit
+  - WeatherKit
+  - DeviceActivity framework
+
+## 19. 접근성
+
+- 보조 기술
+  - VoiceOver
+  - Switch Control
+  - AssistiveTouch 개념
+- 시각적 접근성
+  - Dynamic Type
+  - Bold Text
+  - Reduce Motion
+  - Reduce Transparency
+  - Increase Contrast
+  - 색각 이상 대응
+- 접근성 API
+  - accessibilityLabel
+  - accessibilityValue
+  - accessibilityHint
+  - accessibilityIdentifier
+  - accessibilityTrait
+  - semantic label
+- 내비게이션 접근성
+  - focus order
+  - rotor 개념
+  - tappable area
+  - hit target
+  - semantic grouping
+  - screen reader friendly navigation
+- 콘텐츠 접근성
+  - 이미지 대체 텍스트
+  - 자막
+  - 음성 안내
+
+## 20. 국제화와 지역화
+
+- 리소스 관리
+  - localization
+  - internationalization
+  - Localizable.strings
+  - String Catalog
+- 언어 처리
+  - pluralization
+  - gendered language 대응 개념
+  - right-to-left layout
+  - bidirectional text
+  - truncation 대응
+- 로케일과 포맷
+  - locale
+  - time zone
+  - calendar
+  - date formatting
+  - number formatting
+  - currency formatting
+  - measurement formatting
+  - locale-aware sorting
+- 시간 동기화
+  - server/client time handling
+- 워크플로
+  - translation workflow
+  - pseudo localization
+
+## 21. 빌드, 배포, 운영
+
+- 버전 관리
+  - semantic versioning
+  - build number
+  - release note
+- 배포 방식
+  - archive
+  - ad hoc distribution
+  - TestFlight
+  - App Store distribution
+  - phased release
+- 기능 제어
+  - feature flag
+  - remote config
+  - staged rollout
+- 모니터링
+  - crash reporting
+  - analytics
+  - logging
+  - monitoring
+  - alerting
+  - privacy-safe analytics
+  - A/B testing 개념
+- App Store 심사
+  - App Review guideline
+  - guideline 2.x
+  - guideline 4.x
+  - metadata
+  - screenshot
+  - privacy questionnaire
+  - export compliance
+  - age rating
+  - entitlement review
+- 앱 최적화
+  - app thinning
+  - bitcode 역사
+  - on-demand resources
+- 심볼 관리
+  - symbol upload
+  - dSYM upload
+- 장애 대응
+  - rollback strategy
+  - hotfix 대응
+
+## 22. CI/CD와 자동화
+
+- CI/CD 플랫폼
+  - Fastlane
+  - GitHub Actions
+  - Bitrise
+  - Jenkins
+  - CircleCI
+- 빌드 도구
+  - xcodebuild
+  - xcbeautify
+  - build cache
+- 테스트 자동화
+  - test automation
+- 코드 품질
+  - lint automation
+  - SwiftLint
+  - SwiftFormat
+  - Danger
+- 코드 생성
+  - code generation
+  - Sourcery 개념
+- 프로젝트 생성 도구
+  - Tuist 개념
+  - XcodeGen 개념
+- 바이너리 배포
+  - binary distribution pipeline
+  - internal SDK distribution
+- 릴리즈 자동화
+  - pre-commit hook
+  - release pipeline
+  - certificate automation
+  - match
+  - notarization 개념
+  - artifact management
+
+## 23. 협업과 Git
+
+- Git 기본
+  - branch strategy
+  - Git Flow
+  - trunk-based development
+  - commit convention
+  - conventional commits 개념
+- Git 명령어
+  - rebase
+  - merge
+  - squash merge
+  - cherry-pick
+  - conflict resolution
+  - blame
+  - bisect
+  - tag
+- 브랜치 전략
+  - release branch
+  - hotfix branch
+- 문서화
+  - changelog
+  - ADR
+  - technical documentation
+  - onboarding 문서
+- 협업 도구
+  - pull request
+  - code review
+  - review checklist
+  - issue tracking
+  - Jira
+  - Linear
+  - communication etiquette
+
+## 24. 제품 감각과 실무 감각
+
+- 비즈니스 지표
+  - 사용자 관점
+  - 비즈니스 목표 이해
+  - KPI
+  - retention
+  - conversion
+  - funnel
+  - activation
+  - engagement
+- 소프트웨어 품질
+  - error budget 개념
+  - observability
+  - maintainability
+  - scalability
+  - extensibility
+  - backward compatibility
+- 기술 전략
+  - migration strategy
+  - tech debt
+  - refactoring timing
+  - trade-off 분석
+  - cost-benefit 판단
+- 장애 관리
+  - 실패 대응
+  - incident response
+  - root cause analysis
+  - postmortem
+- 커뮤니케이션
+  - stakeholder communication
+  - 일정 산정
+  - 리스크 관리
+
+## 25. 면접에서 자주 확인되는 주제
+
+- Swift 기본
+  - ARC 설명
+  - struct vs class
+  - value semantics
+  - copy-on-write
+  - protocol vs inheritance
+  - generic vs existential
+  - weak vs unowned
+  - retain cycle 사례
+- 비동기와 동시성
+  - DispatchQueue vs OperationQueue
+  - async/await vs Combine
+  - actor와 thread safety
+- UI
+  - UIKit lifecycle
+  - SwiftUI rendering
+  - Auto Layout 충돌 원인
+  - table/collection view 재사용
+- 데이터와 네트워크
+  - Core Data 동시성
+  - URLSession 동작
+  - HTTP 캐싱
+  - 인증 토큰 갱신 전략
+- 성능과 디버깅
+  - 앱 시작 속도 개선
+  - 메모리 누수 탐지
+  - crash log 분석
+- 설계
+  - testability 설계
+  - MVC에서 MVVM 전환 이유
+  - coordinator 필요성
+  - DI 필요성
+- 배포
+  - 앱 배포 과정
+  - code signing 구조
+  - App Store 심사 대응
+
+## 26. 시니어로 갈수록 더 중요해지는 주제
+
+- 아키텍처와 설계
+  - 아키텍처 선택 근거
+  - 대규모 모듈화
+  - 공통 컴포넌트 설계
+  - 디자인 시스템 운영
+- 빌드와 인프라
+  - 빌드 시간 최적화
+  - 릴리즈 운영 체계
+  - 다중 타깃/화이트라벨 운영
+- 협업과 품질
+  - API 계약 협의
+  - 백엔드 협업
+  - 데이터 모델 진화
+  - 코드 리뷰 문화
+  - 테스트 전략 수립
+- 운영과 장애
+  - 장애 대응 프로세스
+  - 성능 예산
+  - 보안 리뷰
+  - 프라이버시 리뷰
+- 조직 역량
+  - 팀 생산성 최적화
+  - 기술 부채 상환 전략
+  - 멘토링
+  - 채용 기준 수립
+- 레거시
+  - 레거시 마이그레이션
+
+## 27. 학습 우선순위 추천
+
+### 입문
+
+- Swift 기초
+- UIKit 또는 SwiftUI 한 축
+- Auto Layout
+- 네트워킹 기초
+- 테이블/리스트 UI
+- 앱 생명주기
+- Git 기초
+
+### 주니어
+
+- ARC
+- 비동기 처리
+- 아키텍처 기본
+- 테스트 기초
+- 디버깅
+- 배포 흐름
+- 접근성
+- 로컬 저장소
+
+### 미들
+
+- 모듈화
+- 성능 최적화
+- 보안
+- CI/CD
+- 고급 상태 관리
+- Swift 심화
+- 코드 리뷰 역량
+
+### 시니어
+
+- 시스템 설계
+- 조직 생산성
+- 플랫폼 전략
+- 기술 의사결정
+- 운영 자동화
+- 장애 대응
+- 비즈니스 연계 판단
+
+## 28. 빠른 셀프 체크 질문
+
+- Swift 메모리 관리 원리를 설명할 수 있는가
+- UIKit와 SwiftUI의 렌더링 사고방식 차이를 설명할 수 있는가
+- 앱 생명주기와 scene 생명주기를 구분할 수 있는가
+- 네트워크 계층을 테스트 가능하게 설계할 수 있는가
+- retain cycle이 생기는 지점을 코드에서 바로 찾을 수 있는가
+- Instruments로 병목을 찾을 수 있는가
+- Core Data 또는 SwiftData의 동시성 제약을 이해하는가
+- 코드 서명과 배포 과정을 설명할 수 있는가
+- 접근성과 지역화를 출시 기준으로 점검할 수 있는가
+- 기능 구현보다 유지보수 비용을 먼저 생각할 수 있는가
+
+---
+
+## 요약
+
+iOS 개발자는 단순히 `Swift 문법`만 아는 사람이 아니라, `UI`, `비동기`, `네트워크`, `데이터`, `보안`, `성능`, `배포`, `협업`, `제품 감각`까지 연결해서 다룰 수 있어야 한다. 이 문서는 그 전체 범위를 빠르게 훑고 빠진 영역을 찾기 위한 기준표로 사용할 수 있다.
