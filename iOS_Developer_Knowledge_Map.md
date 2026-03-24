@@ -198,9 +198,9 @@
   - module
   - package
 - Swift Concurrency
-  - concurrency model
-  - actor isolation
-  - Sendable
+	- concurrency model
+	- actor isolation
+	- [[Sendable]]
   - @MainActor
   - global actor
   - task cancellation
@@ -632,7 +632,7 @@
   - thread confinement
   - main thread
   - UI thread safety
-- Swift Concurrency
+- Swift_Concurrency
   - async/await
   - Task
   - TaskGroup
@@ -644,11 +644,11 @@
   - detached task
   - continuation
 - [[Combine]]
-  - [[Publisher]]
-  - Subscriber
-  - [[Subject]]
-    - [[Combine/Subject/CurrentValueSubject.md|CurrentValueSubject]]
-    - [[Combine/Subject/PassthroughSubject.md|PassthroughSubject]]
+	- [[Publisher]]
+	- [[Subscriber]]
+	- [[Subject]]
+	    - [[Combine/Subject/CurrentValueSubject.md|CurrentValueSubject]]
+	    - [[Combine/Subject/PassthroughSubject.md|PassthroughSubject]]
   - AnyPublisher
   - 구독
     - sink

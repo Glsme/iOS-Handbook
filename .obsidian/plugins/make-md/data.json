@@ -39,7 +39,9 @@
   "deleteFileOption": "trash",
   "expandedSpaces": [
     "/",
-    "//Combine"
+    "//Swift",
+    "//Swift/Swift/Protocol",
+    "//Swift_Concurrency"
   ],
   "expandFolderOnClick": true,
   "spacesFolder": "Tags",
@@ -51,6 +53,8 @@
     "_assets",
     "_blocks"
   ],
+  "newFileLocation": "root",
+  "newFileFolderPath": "",
   "inlineBacklinks": false,
   "inlineContext": true,
   "inlineBacklinksExpanded": false,
