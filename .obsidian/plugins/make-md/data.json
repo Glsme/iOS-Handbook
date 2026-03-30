@@ -41,7 +41,9 @@
     "/",
     "//Swift",
     "//Swift/Swift/Protocol",
-    "//Swift_Concurrency"
+    "//Swift_Concurrency",
+    "//알고리즘",
+    "//알고리즘/알고리즘/정렬"
   ],
   "expandFolderOnClick": true,
   "spacesFolder": "Tags",
@@ -53,8 +55,6 @@
     "_assets",
     "_blocks"
   ],
-  "newFileLocation": "root",
-  "newFileFolderPath": "",
   "inlineBacklinks": false,
   "inlineContext": true,
   "inlineBacklinksExpanded": false,
