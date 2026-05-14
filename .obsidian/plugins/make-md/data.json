@@ -39,11 +39,14 @@
   "deleteFileOption": "trash",
   "expandedSpaces": [
     "/",
-    "//Swift",
     "//Swift/Swift/Protocol",
     "//Swift_Concurrency",
     "//알고리즘",
-    "//알고리즘/알고리즘/정렬"
+    "//알고리즘/알고리즘/정렬",
+    "//SwiftUI",
+    "//SwiftUI/SwiftUI/Property_Wrapper",
+    "//Swift",
+    "//SwiftUI/SwiftUI/PropertyWrapper"
   ],
   "expandFolderOnClick": true,
   "spacesFolder": "Tags",

@@ -393,90 +393,90 @@
 ## 7. SwiftUI
 
 - 앱 구조
-  - App protocol
-  - Scene
-  - View
-  - body
-  - declarative UI
-  - state-driven rendering
+    - App protocol
+    - Scene
+    - View
+    - body
+    - declarative UI
+    - state-driven rendering
 - 상태 관리 프로퍼티 래퍼
-  - @State
-  - @Binding
-  - @StateObject
-  - @ObservedObject
-  - @EnvironmentObject
-  - @Environment
-  - @Bindable
-  - @Observable
-  - @AppStorage
-  - @SceneStorage
-  - @FetchRequest
-  - @Query
-  - Observation framework
+    - [[@State]]
+    - [[@Binding]]
+    - @StateObject
+    - @ObservedObject
+    - @EnvironmentObject
+    - @Environment
+    - @Bindable
+    - @Observable
+    - @AppStorage
+    - @SceneStorage
+    - @FetchRequest
+    - @Query
+    - Observation framework
 - 렌더링과 성능
-  - identity
-  - diffing
-  - EquatableView
+    - identity
+    - diffing
+    - EquatableView
 - 뷰 구성
-  - ViewBuilder
-  - modifier
-  - custom modifier
-  - preference key
-  - geometry reader
-  - layout protocol
-  - alignment guide
+    - ViewBuilder
+    - modifier
+    - custom modifier
+    - preference key
+    - geometry reader
+    - layout protocol
+    - alignment guide
 - 내비게이션과 모달
-  - navigation stack
-  - navigation path
-  - sheet
-  - fullScreenCover
-  - alert
-  - confirmationDialog
+    - navigation stack
+    - navigation path
+    - sheet
+    - fullScreenCover
+    - alert
+    - confirmationDialog
 - 리스트와 스크롤
-  - list
-  - LazyVStack
-  - LazyHStack
-  - grid
-  - scroll view
-  - containerRelativeFrame
-  - ScrollPosition
+    - list
+    - LazyVStack
+    - LazyHStack
+    - grid
+    - scroll view
+    - containerRelativeFrame
+    - ScrollPosition
 - 생명주기와 이벤트
-  - onChange(of:)
-  - onAppear
-  - onDisappear
-  - scene phase
-  - task modifier
+    - onChange(of:)
+    - onAppear
+    - onDisappear
+    - scene phase
+    - task modifier
 - 입력과 인터랙션
-  - sensoryFeedback
-  - Inspector
-  - refreshable
-  - searchable
-  - toolbar
-  - commands
-  - menu
-  - share link
-  - focus state
-  - accessibility modifier
+    - sensoryFeedback
+    - Inspector
+    - refreshable
+    - searchable
+    - toolbar
+    - commands
+    - menu
+    - share link
+    - focus state
+    - accessibility modifier
 - 애니메이션
-  - animation
-  - withAnimation
-  - matchedGeometryEffect
-  - transaction
-  - phase animator
-  - content transition
+    - animation
+    - withAnimation
+    - matchedGeometryEffect
+    - transaction
+    - phase animator
+    - content transition
 - 캔버스와 타임라인
-  - timeline view
-  - canvas
+    - timeline view
+    - canvas
 - UIKit 연동
-  - UIHostingController
-  - UIViewRepresentable
-  - UIViewControllerRepresentable
-  - interoperability with UIKit
-  - ui hosting
+    - UIHostingController
+    - UIViewRepresentable
+    - UIViewControllerRepresentable
+    - interoperability with UIKit
+    - ui hosting
 - 프리뷰
-  - preview
-  - PreviewProvider 역사
-  - #Preview
+    - preview
+    - PreviewProvider 역사
+    - #Preview
 
 ## 8. UI/UX와 디자인 시스템
 
