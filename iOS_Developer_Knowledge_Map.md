@@ -136,25 +136,9 @@
   - fileprivate
   - private
 - 프로토콜과 확장
-  - extension
-  - protocol
-  - protocol extension
-  - Swift 핵심 프로토콜
-    - [[Equatable]]
-    - [[Hashable]]
-    - Comparable
-    - Identifiable
-    - Codable
-    - CustomStringConvertible
-    - CustomDebugStringConvertible
-    - Sequence
-    - IteratorProtocol
-    - Collection
-    - RawRepresentable
-    - CaseIterable
-    - ExpressibleByStringLiteral
-    - ExpressibleByArrayLiteral
-    - ExpressibleByDictionaryLiteral
+	- extension
+	- [[Protocol]]
+	- protocol extension
 - 제네릭과 타입 추상화
   - associatedtype
   - generic
