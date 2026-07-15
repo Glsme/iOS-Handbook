@@ -46,7 +46,8 @@
     "//SwiftUI",
     "//SwiftUI/SwiftUI/Property_Wrapper",
     "//Swift",
-    "//SwiftUI/SwiftUI/PropertyWrapper"
+    "//SwiftUI/SwiftUI/PropertyWrapper",
+    "//iOS"
   ],
   "expandFolderOnClick": true,
   "spacesFolder": "Tags",
