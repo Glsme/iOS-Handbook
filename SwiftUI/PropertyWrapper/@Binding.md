@@ -41,7 +41,7 @@ public struct Binding<Value> {
 	- 예: 부모의 `@State var count`를 `$count`로 넘기면 자식은 `@Binding var count`로 받아 값 공유
 - 값 안의 특정 프로퍼티만 골라서 바인딩 가능
 	- `$user.name`처럼 내부 프로퍼티 하나만 가리키는 @Binding도 바로 생성 가능 
-	  (`@dynamicMemberLookup` 덕분)
+	  ([[@dynamicMemberLookup]] 덕분)
 - 커스텀 Binding을 직접 생성 가능
 	- `get`/`set` 클로저로 동작을 직접 정의. 변환·검증 로직을 끼워 넣고 싶을 때 사용
 - `Binding.constant(_:)`로 고정값 바인딩 생성
