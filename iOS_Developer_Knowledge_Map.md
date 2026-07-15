@@ -205,7 +205,7 @@
 - Key Path
     - key path
     - writable key path
-    - dynamic member lookup
+    - [[@dynamicMemberLookup]]
 - Ownership
     - ownership 개념
     - borrowing 개념
