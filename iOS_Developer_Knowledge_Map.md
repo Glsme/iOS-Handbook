@@ -383,11 +383,12 @@
     - body
     - declarative UI
     - state-driven rendering
+    - [[DataFlow]]
 - 상태 관리 프로퍼티 래퍼
     - [[@State]]
     - [[@Binding]]
     - @StateObject
-    - @ObservedObject
+    - [[@ObservedObject]]
     - @EnvironmentObject
     - @Environment
     - @Bindable
@@ -398,9 +399,9 @@
     - @Query
     - Observation framework
 - 렌더링과 성능
-    - identity
-    - diffing
-    - EquatableView
+    - [[Identity]]
+    - [[Diffing]]
+    - [[EquatableView]]
 - 뷰 구성
     - ViewBuilder
     - modifier
@@ -645,6 +646,8 @@
         - combineLatest
         - flatMap
     - [[Publisher#^382016|eraseToAnyPublisher]]
+    - [[@Published]]
+    - [[ObservableObject]]
     - scheduler
     - backpressure 개념
 - 기타 반응형

@@ -13,4 +13,8 @@
 # Cancellabe
 - [[Cancellabe]]
 
+# SwiftUI 연동
+- [[@Published]]
+- [[ObservableObject]]
+
 
