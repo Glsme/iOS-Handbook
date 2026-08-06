@@ -9,8 +9,6 @@
 
 ### Tier 0 — 토대 (이걸 모르면 상태 관리가 이해되지 않는다)
 
-- [ ] **선언형 UI (Declarative UI)** — 명령형 UIKit과 무엇이 근본적으로 다른가? "상태의 함수로서의 뷰"란?
-  - 연관: [[DataFlow]]
 - [ ] **View 프로토콜 / body / `some View`** — body는 언제, 누가, 몇 번 호출하는가?
 - [ ] **불투명 반환 타입 (Opaque Return Type)** — `some View`가 제네릭·`any View`와 다른 이유는?
 - [ ] **@ViewBuilder / Result Builder** — 중괄호 안에 나열한 뷰들이 어떻게 하나의 타입으로 합쳐지는가?
@@ -21,6 +19,12 @@
 - [ ] **Source of Truth / Derived Value** — 어떤 데이터를 상태로 두고 어떤 걸 계산으로 둘 것인가?
   - 연관: [[DataFlow]]
 - [ ] **AttributeGraph** — SwiftUI 내부의 의존성 그래프. 비공개 구현이라 어디까지가 확인된 사실인가?
+- [ ] **값 의미론 (Value Semantics)** — 값 타입이라는 사실이 diff를 가능하게 하는 정확한 메커니즘은? 참조 타입이면 왜 비교 자체가 불가능한가?
+  - 맥락: 2026-08-06, 선언형 UI 딥다이브 중 기반 개념으로 등장
+  - 연관: [[선언형 UI (Declarative UI)]], [[Diffing]]
+- [ ] **body의 순수성과 부작용** — 호출 시점·횟수가 보장되지 않는다는 계약을 어기면 실제로 어떤 버그로 나타나는가? 부작용은 어디에 둬야 하는가(`.task`, `.onChange(of:)`)?
+  - 맥락: 2026-08-06, 선언형 UI 딥다이브 중 등장
+  - 연관: [[선언형 UI (Declarative UI)]]
 
 ### Tier 1 — 상태 관리 코어
 
@@ -95,6 +99,7 @@
 
 ## 완료
 
+- [x] **선언형 UI (Declarative UI)** → [[선언형 UI (Declarative UI)]] (2026-08-06, 딥다이브 6문항 완주)
 - [x] **DataFlow** → [[DataFlow]] (2026-08-05)
 - [x] **@State** → [[@State]] (2026-05-14)
 - [x] **@Binding** → [[@Binding]] (2026-07-15)

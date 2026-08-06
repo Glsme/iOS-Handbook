@@ -381,7 +381,7 @@
     - Scene
     - View
     - body
-    - declarative UI
+    - [[선언형 UI (Declarative UI)|declarative UI]]
     - state-driven rendering
     - [[DataFlow]]
 - 상태 관리 프로퍼티 래퍼
