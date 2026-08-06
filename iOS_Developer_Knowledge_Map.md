@@ -115,6 +115,7 @@
     - 클래스
     - 값 타입
     - 참조 타입
+    - [[값 의미론 (Value Semantics)|값 의미론]]
 - 메서드와 초기화
     - 메서드
     - mutating
@@ -165,7 +166,7 @@
     - unowned reference
     - retain cycle
     - capture list
-    - copy-on-write
+    - [[값 의미론 (Value Semantics)|copy-on-write]]
     - 메모리 최적화
 - 타입 시스템과 런타임
     - 메타타입
@@ -1307,7 +1308,7 @@
 - Swift 기본
     - ARC 설명
     - struct vs class
-    - value semantics
+    - [[값 의미론 (Value Semantics)|value semantics]]
     - copy-on-write
     - protocol vs inheritance
     - generic vs existential
