@@ -12,7 +12,6 @@
 - [ ] **View 프로토콜 / body / `some View`** — body는 언제, 누가, 몇 번 호출하는가?
 - [ ] **불투명 반환 타입 (Opaque Return Type)** — `some View`가 제네릭·`any View`와 다른 이유는?
 - [ ] **@ViewBuilder / Result Builder** — 중괄호 안에 나열한 뷰들이 어떻게 하나의 타입으로 합쳐지는가?
-- [ ] **DynamicProperty** — 모든 상태 래퍼가 채택하는 이 프로토콜이 하는 일은? 래퍼가 SwiftUI 업데이트에 참여하는 통로
 - [ ] **Source of Truth / Derived Value** — 어떤 데이터를 상태로 두고 어떤 걸 계산으로 둘 것인가?
   - 연관: [[DataFlow]]
 - [ ] **AttributeGraph** — SwiftUI 내부의 의존성 그래프. 비공개 구현이라 어디까지가 확인된 사실인가?
@@ -36,15 +35,15 @@
 - [ ] **projectedValue와 `$`** — `$count`가 실제로 반환하는 것은 무엇인가?
 - [ ] **Binding 직접 만들기** — `Binding(get:set:)`, `.constant(_:)`를 언제 쓰는가?
 
-### Tier 2 — 저장·특수 목적 상태
+~~### Tier 2 — 저장·특수 목적 상태~~
 
-- [ ] **@AppStorage / @SceneStorage** — UserDefaults·상태 복원과 뷰를 잇는 래퍼. 언제 쓰면 안 되는가?
-- [ ] **@FocusState** — 키보드 포커스를 상태로 다루기
-- [ ] **@GestureState** — 제스처가 끝나면 자동으로 초기화되는 상태
-- [ ] **@Namespace** — `matchedGeometryEffect`의 식별 공간
-- [ ] **@ScaledMetric** — Dynamic Type에 따라 스케일되는 값
-- [ ] **@FetchRequest / @Query** — Core Data / SwiftData를 뷰에 직접 잇는 래퍼
-- [ ] **@UIApplicationDelegateAdaptor** — SwiftUI 앱에서 AppDelegate를 살리는 통로
+~~- [ ] **@AppStorage / @SceneStorage** — UserDefaults·상태 복원과 뷰를 잇는 래퍼. 언제 쓰면 안 되는가?~~
+~~- [ ] **@FocusState** — 키보드 포커스를 상태로 다루기~~
+~~- [ ] **@GestureState** — 제스처가 끝나면 자동으로 초기화되는 상태~~
+~~- [ ] **@Namespace** — `matchedGeometryEffect`의 식별 공간~~
+~~- [ ] **@ScaledMetric** — Dynamic Type에 따라 스케일되는 값~~
+~~- [ ] **@FetchRequest / @Query** — Core Data / SwiftData를 뷰에 직접 잇는 래퍼~~
+~~- [ ] **@UIApplicationDelegateAdaptor** — SwiftUI 앱에서 AppDelegate를 살리는 통로~~
 
 ### Tier 3 — 렌더링과 성능 (핸드북에 일부 있음)
 
@@ -104,11 +103,18 @@
 - [ ] **CoW 직접 구현** — `isKnownUniquelyReferenced`로 내 타입에 값 의미론 + 지연 복사를 어떻게 구현하는가? "복사 조건 = 변경 × 공유"를 코드로 체화하기
   - 맥락: 2026-08-06, 값 의미론 딥다이브에서 표준 라이브러리의 CoW 메커니즘을 배우고 남은 실습 과제
   - 연관: [[값 의미론 (Value Semantics)]]
+- [ ] **@propertyWrapper (SE-0258)** — 언어가 wrappedValue·projectedValue를 어떻게 합성하는가? `@State var count` 한 줄이 컴파일 타임에 무엇으로 바뀌는지 언어 쪽에서 정리
+  - 맥락: 2026-08-07, DynamicProperty 딥다이브에서 언어 층/프레임워크 층 구분이 반복적으로 막힌 약점
+  - 연관: [[DynamicProperty]], projectedValue와 `$`(미착수 기존 항목)
+- [ ] **Mirror / 리플렉션** — Swift 런타임 메타데이터는 무엇을 알고 있고, Mirror는 어디까지 보여주는가? SwiftUI의 래퍼 "심사"가 서는 기반
+  - 맥락: 2026-08-07, DynamicProperty 딥다이브 중 "리플렉션이 뭐야?" 질문에서 등장
+  - 연관: [[DynamicProperty]]
 
 ## 진행 중
 
 ## 완료
 
+- [x] **DynamicProperty** → [[DynamicProperty]] (2026-08-07, 딥다이브 6문항 완주 · 재인출 5라운드 10%→22%→43%→50%→100%. 약점 메모: update() 방향 오개념("값 변경 시 호출")을 잡는 데 2라운드, 커스텀 래퍼 "State를 품는다"는 5라운드에야 정착 — State의 나머지 반쪽(쓰기→dirty→갱신)은 끝까지 미인출, 기반 4개는 목록 암기 대신 인과 사슬("문제→어디→어떻게→누가")로 정착, 세션 중 wrappedValue·리플렉션 기초 질문이 등장해 언어 층이 약함이 드러남 — 노트 "더 파볼 질문"과 신규 백로그 @propertyWrapper·Mirror 참고)
 - [x] **뷰 업데이트 사이클** → [[뷰 업데이트 사이클 (View Update Cycle)]] (2026-08-07, 딥다이브 6문항 완주 · 재인출 4라운드 33%→50%→0%→100%. 약점 메모: "몰아서 갱신"의 주사율 상한 이득 재인출 누락, 위반 4종 정착에 4라운드(특히 백그라운드 위반 = 상태 변경 자체라는 정의), 트랜잭션은 본인 질문으로 뚫림. React·Flutter 비교는 본인 선택으로 범위 제외 — 노트 "더 파볼 질문" 참고)
 - [x] **View는 값 타입(struct)이다** → [[값으로서의 View (View as Value)]] (2026-08-07, 딥다이브 6문항 완주 · 재인출 4라운드 37.5%→60%→50%→100%. 약점 메모: identity 리셋 케이스 중 ForEach id 소멸, ".task는 body 재호출에 재시작 안 됨" 명시, @StateObject의 해결 메커니즘, 언어 강제력 vs 관례 — 노트 "더 파볼 질문" 참고)
 - [x] **값 의미론 (Value Semantics)** → [[값 의미론 (Value Semantics)]] (2026-08-06, 딥다이브 6문항 완주 · 재인출 4라운드 62.5%→66.7%→부분 통과→100%. 약점 메모: Obj-C 방어적 복사 사고 시나리오 재현, "관찰 가능한"이라는 수식어 — 노트의 "더 파볼 질문" 참고)
