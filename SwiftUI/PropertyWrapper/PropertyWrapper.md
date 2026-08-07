@@ -18,3 +18,4 @@
 
 # 기반
 - [[DynamicProperty]] — 모든 상태 래퍼가 채택하는 "표식 하나, 훅 하나"의 참여 통로
+- [[@propertyWrapper]] — 그 아래 언어 층. `_x` 상자와 접근자를 합성하는 쪽 (SwiftUI 무관)

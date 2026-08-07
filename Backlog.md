@@ -104,9 +104,15 @@
 - [ ] **CoW 직접 구현** — `isKnownUniquelyReferenced`로 내 타입에 값 의미론 + 지연 복사를 어떻게 구현하는가? "복사 조건 = 변경 × 공유"를 코드로 체화하기
   - 맥락: 2026-08-06, 값 의미론 딥다이브에서 표준 라이브러리의 CoW 메커니즘을 배우고 남은 실습 과제
   - 연관: [[값 의미론 (Value Semantics)]]
-- [ ] **@propertyWrapper (SE-0258)** — 언어가 wrappedValue·projectedValue를 어떻게 합성하는가? `@State var count` 한 줄이 컴파일 타임에 무엇으로 바뀌는지 언어 쪽에서 정리
-  - 맥락: 2026-08-07, DynamicProperty 딥다이브에서 언어 층/프레임워크 층 구분이 반복적으로 막힌 약점
-  - 연관: [[DynamicProperty]], projectedValue와 `$`(미착수 기존 항목)
+- [ ] **래퍼 합성 `@A @B var x`** — A의 `wrappedValue` 타입이 B여야 한다는 타입 체인 규칙. 중첩 래핑은 어디까지 되는가?
+  - 맥락: 2026-08-07, @propertyWrapper 딥다이브에서 컴파일러 실측 중 등장(`composed wrapper type does not match`)
+  - 연관: [[@propertyWrapper]]
+- [ ] **`init(projectedValue:)`와 SE-0293** — `$`로 초기화하는 경로는 언제 쓰는가? 함수 파라미터에 붙는 property wrapper는 무엇을 합성하는가?
+  - 맥락: 2026-08-07, @propertyWrapper 딥다이브 — 파라미터·지역 변수에 붙는 것이 실측으로 확인됐으나 용도는 미확인
+  - 연관: [[@propertyWrapper]], projectedValue와 `$`(Tier 1 기존 항목)
+- [ ] **커스텀 래퍼 직접 작성 실습** — `@Clamped`·`@Capped`를 자료 없이 처음부터 코드로 쓰기. 창고(백킹 스토리지)와 창구(wrappedValue) 분리를 손으로 체화
+  - 맥락: 2026-08-07, @propertyWrapper 딥다이브에서 코드 작성 문항을 스킵해 미실습으로 남음
+  - 연관: [[@propertyWrapper]], [[DynamicProperty]]
 - [ ] **Mirror / 리플렉션** — Swift 런타임 메타데이터는 무엇을 알고 있고, Mirror는 어디까지 보여주는가? SwiftUI의 래퍼 "심사"가 서는 기반
   - 맥락: 2026-08-07, DynamicProperty 딥다이브 중 "리플렉션이 뭐야?" 질문에서 등장
   - 연관: [[DynamicProperty]]
@@ -115,6 +121,7 @@
 
 ## 완료
 
+- [x] **@propertyWrapper (SE-0258)** → [[@propertyWrapper]] (2026-08-07, 딥다이브 6문항 완주 · 재인출 4라운드 73%→67%→67%→100%. 약점 메모: 여섯 문항 중 다섯에서 언어 층 질문에 SwiftUI로 답하는 패턴이 나와 백로그의 진단이 그대로 확증됨 — "컴파일은 언어 층, 실행은 프레임워크 층"이 4라운드에야 정착. 매크로와의 경계(프로퍼티 한 칸 vs 타입 전체)는 1라운드 완전 미답 후 회복, plain class 사례는 마지막 라운드에야 인출. 코드 작성 문항은 본인 요청으로 스킵 — 신규 백로그 "커스텀 래퍼 직접 작성 실습" 참고)
 - [x] **DynamicProperty** → [[DynamicProperty]] (2026-08-07, 딥다이브 6문항 완주 · 재인출 5라운드 10%→22%→43%→50%→100%. 약점 메모: update() 방향 오개념("값 변경 시 호출")을 잡는 데 2라운드, 커스텀 래퍼 "State를 품는다"는 5라운드에야 정착 — State의 나머지 반쪽(쓰기→dirty→갱신)은 끝까지 미인출, 기반 4개는 목록 암기 대신 인과 사슬("문제→어디→어떻게→누가")로 정착, 세션 중 wrappedValue·리플렉션 기초 질문이 등장해 언어 층이 약함이 드러남 — 노트 "더 파볼 질문"과 신규 백로그 @propertyWrapper·Mirror 참고)
 - [x] **뷰 업데이트 사이클** → [[뷰 업데이트 사이클 (View Update Cycle)]] (2026-08-07, 딥다이브 6문항 완주 · 재인출 4라운드 33%→50%→0%→100%. 약점 메모: "몰아서 갱신"의 주사율 상한 이득 재인출 누락, 위반 4종 정착에 4라운드(특히 백그라운드 위반 = 상태 변경 자체라는 정의), 트랜잭션은 본인 질문으로 뚫림. React·Flutter 비교는 본인 선택으로 범위 제외 — 노트 "더 파볼 질문" 참고)
 - [x] **View는 값 타입(struct)이다** → [[값으로서의 View (View as Value)]] (2026-08-07, 딥다이브 6문항 완주 · 재인출 4라운드 37.5%→60%→50%→100%. 약점 메모: identity 리셋 케이스 중 ForEach id 소멸, ".task는 body 재호출에 재시작 안 됨" 명시, @StateObject의 해결 메커니즘, 언어 강제력 vs 관례 — 노트 "더 파볼 질문" 참고)

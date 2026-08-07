@@ -21,7 +21,7 @@ t4 body — count 읽기 = wrappedValue getter = 연결을 타고 저장소 읽�
 ```
 - **연결(t2)이 update(t3)보다 앞인 이유**: 연결이 없으면 update()가 읽어올 원본이 없다 — 초깃값밖에 못 읽는다
 - **update()는 방아쇠가 아니다.** `count += 1`은 setter가 저장소에 쓰고 **dirty 표시만** 남긴다([[뷰 업데이트 사이클 (View Update Cycle)]] ①~③). update()는 다음 프레임 틱, body 직전에 SwiftUI가 부르는 **읽기 준비 훅**. @State는 여기서 할 일이 거의 없고(기본 구현), **외부 시스템과 동기화하는 래퍼**(@FetchRequest의 Core Data 쿼리 실행)가 실질적으로 쓴다
-- **이층 구조**: 언어(@propertyWrapper, SE-0258)는 컴파일 타임에 `count` → `_count.wrappedValue` **바꿔치기만** 한다. 설치·연결·update 호출·무효화는 전부 SwiftUI가 런타임에. `nonmutating set`이 가능한 이유 = 쓰기가 struct가 아니라 **힙의 SwiftUI 저장소**로 가기 때문
+- **이층 구조**: 언어([[@propertyWrapper]], SE-0258)는 컴파일 타임에 `count` → `_count.wrappedValue` **바꿔치기만** 한다. 설치·연결·update 호출·무효화는 전부 SwiftUI가 런타임에. `nonmutating set`이 가능한 이유 = 쓰기가 struct가 아니라 **힙의 SwiftUI 저장소**로 가기 때문
 - **기반 네 다리**: 뷰가 struct라서 필요했고(문제) → 값을 SwiftUI 저장소에 두고(어디) → 프로퍼티 래퍼 문법으로 쓰고(어떻게) → 리플렉션으로 찾는다(누가)
 
 > 설치 대상을 찾는 수단(리플렉션)과 저장소의 실체(AttributeGraph + [[Identity]])는 비공개 구현 추정.
@@ -71,12 +71,12 @@ struct Capped: DynamicProperty {     // 채택 → 설치 심사 대상
 
 ### 더 파볼 질문
 - 커스텀 래퍼에서 State의 나머지 반쪽 — "쓰기 → dirty → 화면 갱신"까지 State가 대신 해준다는 것 (재인출 약점)
-- [[@propertyWrapper]] (SE-0258) — 언어 층의 합성 규칙 (백로그)
 - [[Mirror]] / 리플렉션 — "심사" 다리의 실체 (백로그)
 - projectedValue와 `$` (백로그 기존 항목)
 
 ### 관련
 [[PropertyWrapper]] · [[@State]] · [[값으로서의 View (View as Value)]] · [[뷰 업데이트 사이클 (View Update Cycle)]]
+[[@propertyWrapper]] — 아래층(언어)의 합성 규칙. "상자를 만드는" 쪽
 
 ### 출처
 - Apple 문서 [DynamicProperty](https://developer.apple.com/documentation/swiftui/dynamicproperty) · [update()](https://developer.apple.com/documentation/swiftui/dynamicproperty/update())

@@ -197,7 +197,7 @@
     - Swift 6 strict concurrency
     - complete concurrency checking
 - 메타프로그래밍
-    - property wrapper
+    - [[@propertyWrapper|property wrapper]]
     - result builder
     - macro
         - freestanding macro
