@@ -68,8 +68,9 @@ var body: some View { Text(count > 0 ? "있음" : "없음") }
 var body: some View {
 	VStack { Text("hi"); Button("+") {} }
 }
-// 실제 반환 타입: VStack<TupleView<(Text, Button)>>
+// 실제 반환 타입: VStack<TupleView<(Text, Button<Text>)>>
 // 이 값은 아무것도 그리지 않는다. 그냥 값이다.
+// Button<Label: View> — 문자열 이니셜라이저를 쓰면 Label이 Text로 정해진다
 ```
 
 여기서 [[Identity]]와 [[Diffing]]이 왜 필요한지가 나온다 —
@@ -175,10 +176,14 @@ struct CounterView: View {          // ① struct — 값 타입
 
 ③ **body** — `UI = f(state)`의 `f` 그 자체
 
-④ **`some View`** — 불투명 반환 타입. 실제 타입 `VStack<TupleView<(Text, Button)>>`은 중첩이 폭발해
-손으로 못 쓰니 "View를 따르는 어떤 구체 타입 하나"라고만 선언한다.
+④ **`some View`** — 불투명 반환 타입. 실제 타입 `VStack<TupleView<(Text, Button<Text>)>>`은
+제네릭 인자까지 중첩이 폭발해 손으로 못 쓰니 "View를 따르는 어떤 구체 타입 하나"라고만 선언한다.
 중요한 건 **타입이 곧 뷰의 구조**라는 점 — SwiftUI는 이 타입 정보로 [[Identity]]와 [[Diffing]]을 한다.
-`any View`로 타입을 지우면 이 정보가 사라져 최적화가 깨진다
+`AnyView`로 타입을 지우면 이 구조 정보가 사라진다. 감싼 내용물이 무엇으로 바뀌든 SwiftUI 눈에는
+계속 `AnyView` 하나라 structural identity가 흐려지고, 차이만 반영하는 대신 서브트리를 통째로
+파괴·재생성하게 된다 ([[값으로서의 View (View as Value)]]의 리셋 조건).
+**타입 소거 수단은 `AnyView`뿐이다** — `any View`(existential)는 associatedtype 때문에 View를
+준수하지 않아 애초에 body에서 반환할 수 없다
 
 ⑤ **`@ViewBuilder`** — Result Builder. 중괄호 안 나열을 `TupleView` 하나로 합친다.
 뷰 안에서 `if/else`가 되는 것도 이것 덕분(`_ConditionalContent`로 변환)
