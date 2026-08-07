@@ -1311,7 +1311,7 @@
     - ARC 설명
     - struct vs class
     - [[값 의미론 (Value Semantics)|value semantics]]
-    - copy-on-write
+    - [[값 의미론 (Value Semantics)|copy-on-write]]
     - protocol vs inheritance
     - generic vs existential
     - weak vs unowned

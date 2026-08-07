@@ -50,6 +50,9 @@ if count > 0 { Text("\(count)") }
 ⑤ 달라진 부분만 렌더 트리에 반영
 ```
 
+> 위 5단계는 **개요**다. identity 매칭까지 갈라 놓은 7단계 정본은
+> [[뷰 업데이트 사이클 (View Update Cycle)]] — 노트마다 번호가 다르니 번호가 아니라 이름으로 기억한다.
+
 **핵심: body 호출 ≠ 화면 갱신.** body는 자주 호출되지만 실제 렌더는 diff 결과가 있을 때만이다.
 body 호출이 곧 화면 변경이라면 diff는 존재할 이유가 없다 — **diff의 존재 자체가 둘이 분리돼 있다는 증거다.**
 
@@ -214,7 +217,8 @@ struct CounterView: View {          // ① struct — 값 타입
 
 ### 관련
 - [[DataFlow]] — "뷰는 상태의 함수다" 원칙의 실전 적용
-- [[Identity]] · [[Diffing]] · [[EquatableView]] — ④⑤ 단계의 상세
+- [[Identity]] · [[Diffing]] · [[EquatableView]] — 짝짓기·비교 단계의 상세
+- [[뷰 업데이트 사이클 (View Update Cycle)]] — 위 파이프라인의 7단계 정본
 - [[@State]] · [[@Binding]] — 상태 저장소
 
 ### 출처
