@@ -4,6 +4,7 @@
 
 # 토대
 - [[선언형 UI (Declarative UI)|선언형 UI]]
+- [[값으로서의 View (View as Value)|값으로서의 View]]
 
 # 데이터 흐름
 - [[DataFlow]]

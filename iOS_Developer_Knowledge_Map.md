@@ -380,7 +380,7 @@
 - 앱 구조
     - App protocol
     - Scene
-    - View
+    - [[값으로서의 View (View as Value)|View]]
     - body
     - [[선언형 UI (Declarative UI)|declarative UI]]
     - state-driven rendering

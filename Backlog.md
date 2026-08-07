@@ -12,7 +12,6 @@
 - [ ] **View 프로토콜 / body / `some View`** — body는 언제, 누가, 몇 번 호출하는가?
 - [ ] **불투명 반환 타입 (Opaque Return Type)** — `some View`가 제네릭·`any View`와 다른 이유는?
 - [ ] **@ViewBuilder / Result Builder** — 중괄호 안에 나열한 뷰들이 어떻게 하나의 타입으로 합쳐지는가?
-- [ ] **View는 값 타입(struct)이다** — 뷰 값과 실제 렌더링 트리는 어떻게 분리되는가? 뷰가 매번 새로 만들어져도 상태가 유지되는 이유는?
 - [ ] **뷰 업데이트 사이클** — 상태 변경 → 무효화 → body 재호출 → diff → 렌더의 전체 흐름은?
   - 연관: [[Diffing]]
 - [ ] **DynamicProperty** — 모든 상태 래퍼가 채택하는 이 프로토콜이 하는 일은? 래퍼가 SwiftUI 업데이트에 참여하는 통로
@@ -28,6 +27,7 @@
 - [ ] **@StateObject** — [[@ObservedObject]]와 무엇이 다르고, 왜 iOS 14에서 따로 추가됐나? (핸드북 링크 있으나 노트 없음)
   - 연관: [[@ObservedObject]], [[DataFlow]]
 - [ ] **@StateObject vs @ObservedObject** — 소유와 전달의 구분. `@ObservedObject`에 객체를 직접 생성하면 왜 상태가 날아가는가?
+  - 맥락: 2026-08-07 [[값으로서의 View (View as Value)]] 딥다이브에서 "백지 상태 → 초기 화면" 증상까지 인출 성공, 해결 메커니즘(생성을 identity 수명에 묶음)은 미인출 — 여기서 이어서
 - [ ] **@EnvironmentObject** — 뷰 계층을 건너뛴 주입. 주입을 잊으면 왜 런타임 크래시인가? (링크 있으나 노트 없음)
 - [ ] **@Environment / EnvironmentValues / EnvironmentKey** — 환경 값은 어떻게 아래로 전파되는가? 커스텀 키 정의와 iOS 18 `@Entry` 매크로 (링크 있으나 노트 없음)
 - [ ] **Observation / @Observable** — iOS 17의 새 관찰 방식. [[ObservableObject]]의 객체 단위 무효화 문제를 어떻게 프로퍼티 단위로 바꿨나? (링크 있으나 노트 없음)
@@ -70,19 +70,21 @@
 
 - [ ] **NavigationStack / NavigationPath / navigationDestination** — 내비게이션을 상태로 다루기. `NavigationView`에서 왜 갈아엎었나?
 - [ ] **sheet / fullScreenCover / alert / confirmationDialog** — 모달을 Bool·Optional 상태로 띄우는 방식
-- [ ] **List / ForEach와 Identifiable** — 잘못된 id가 어떤 버그로 나타나는가?
+- [ ] **List / ForEach와 Identifiable** — 잘못된 id가 어떤 버그로 나타나는가? 항목의 id가 소멸하면 그 행의 @State는? 잘못된 id로 상태가 엉뚱한 행에 붙는 시나리오 재현
+  - 맥락: 2026-08-07 [[값으로서의 View (View as Value)]] 딥다이브 — identity 리셋 케이스 중 유일하게 끝까지 미인출된 약점
   - 연관: [[Identifiable]], [[Identity]]
 - [ ] **ScrollView / scrollPosition / scrollTargetBehavior** — 스크롤 상태 제어
-- [ ] **task / onAppear / onDisappear** — 뷰 생명주기 훅과 비동기 작업 취소
+- [ ] **task / onAppear / onDisappear** — 뷰 생명주기 훅과 비동기 작업 취소. `.task(id:)`의 재실행 조건은? (id가 바뀌면 기존 작업은 취소되는가)
+  - 맥락: 2026-08-07 [[값으로서의 View (View as Value)]] 딥다이브에서 ".task = 무한 호출 위험" 오개념 교정 — "body 재호출에 재시작되지 않는다"를 명시적으로 인출하는 게 숙제
 - [ ] **searchable / refreshable / toolbar** — 시스템 제공 인터랙션 modifier
 
 ### Tier 6 — 애니메이션
 
-- [ ] **withAnimation / .animation(_:value:)** — 암시적·명시적 애니메이션의 차이
-- [ ] **Transaction** — 애니메이션 컨텍스트가 뷰 트리를 타고 흐르는 방식
-- [ ] **Animatable / animatableData** — 커스텀 값을 애니메이션 가능하게 만들기
-- [ ] **matchedGeometryEffect** — 두 뷰 사이의 전환 연결
-- [ ] **transition / PhaseAnimator / KeyframeAnimator** — 등장·퇴장과 다단계 애니메이션
+~~- [ ] **withAnimation / .animation(_:value:)** — 암시적·명시적 애니메이션의 차이~~
+~~- [ ] **Transaction** — 애니메이션 컨텍스트가 뷰 트리를 타고 흐르는 방식~~
+~~- [ ] **Animatable / animatableData** — 커스텀 값을 애니메이션 가능하게 만들기~~
+~~`- [ ] **matchedGeometryEffect** — 두 뷰 사이의 전환 연결`~~
+~~- [ ] **transition / PhaseAnimator / KeyframeAnimator** — 등장·퇴장과 다단계 애니메이션~~
 
 ### Tier 7 — UIKit 연동과 아키텍처
 
@@ -105,6 +107,7 @@
 
 ## 완료
 
+- [x] **View는 값 타입(struct)이다** → [[값으로서의 View (View as Value)]] (2026-08-07, 딥다이브 6문항 완주 · 재인출 4라운드 37.5%→60%→50%→100%. 약점 메모: identity 리셋 케이스 중 ForEach id 소멸, ".task는 body 재호출에 재시작 안 됨" 명시, @StateObject의 해결 메커니즘, 언어 강제력 vs 관례 — 노트 "더 파볼 질문" 참고)
 - [x] **값 의미론 (Value Semantics)** → [[값 의미론 (Value Semantics)]] (2026-08-06, 딥다이브 6문항 완주 · 재인출 4라운드 62.5%→66.7%→부분 통과→100%. 약점 메모: Obj-C 방어적 복사 사고 시나리오 재현, "관찰 가능한"이라는 수식어 — 노트의 "더 파볼 질문" 참고)
 - [x] **선언형 UI (Declarative UI)** → [[선언형 UI (Declarative UI)]] (2026-08-06, 딥다이브 6문항 완주 · 같은 날 재인출 재검증 3라운드 통과 50%→80%→100%)
 - [x] **DataFlow** → [[DataFlow]] (2026-08-05)
