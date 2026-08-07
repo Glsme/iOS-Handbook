@@ -400,6 +400,7 @@
     - @Query
     - Observation framework
 - 렌더링과 성능
+    - [[뷰 업데이트 사이클 (View Update Cycle)|view update cycle]]
     - [[Identity]]
     - [[Diffing]]
     - [[EquatableView]]

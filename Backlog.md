@@ -12,8 +12,6 @@
 - [ ] **View 프로토콜 / body / `some View`** — body는 언제, 누가, 몇 번 호출하는가?
 - [ ] **불투명 반환 타입 (Opaque Return Type)** — `some View`가 제네릭·`any View`와 다른 이유는?
 - [ ] **@ViewBuilder / Result Builder** — 중괄호 안에 나열한 뷰들이 어떻게 하나의 타입으로 합쳐지는가?
-- [ ] **뷰 업데이트 사이클** — 상태 변경 → 무효화 → body 재호출 → diff → 렌더의 전체 흐름은?
-  - 연관: [[Diffing]]
 - [ ] **DynamicProperty** — 모든 상태 래퍼가 채택하는 이 프로토콜이 하는 일은? 래퍼가 SwiftUI 업데이트에 참여하는 통로
 - [ ] **Source of Truth / Derived Value** — 어떤 데이터를 상태로 두고 어떤 걸 계산으로 둘 것인가?
   - 연관: [[DataFlow]]
@@ -78,6 +76,10 @@
   - 맥락: 2026-08-07 [[값으로서의 View (View as Value)]] 딥다이브에서 ".task = 무한 호출 위험" 오개념 교정 — "body 재호출에 재시작되지 않는다"를 명시적으로 인출하는 게 숙제
 - [ ] **searchable / refreshable / toolbar** — 시스템 제공 인터랙션 modifier
 
+- [ ] **Transaction 전파와 `.transaction` modifier** — 봉투가 뷰 트리를 타고 흐를 때 우선순위 규칙은? `withTransaction`과의 관계는?
+  - 맥락: 2026-08-07, 뷰 업데이트 사이클 딥다이브에서 "트랜잭션은 어느 단계냐"는 질문으로 뚫린 갈래
+  - 연관: [[뷰 업데이트 사이클 (View Update Cycle)]]
+
 ### Tier 6 — 애니메이션
 
 ~~- [ ] **withAnimation / .animation(_:value:)** — 암시적·명시적 애니메이션의 차이~~
@@ -107,6 +109,7 @@
 
 ## 완료
 
+- [x] **뷰 업데이트 사이클** → [[뷰 업데이트 사이클 (View Update Cycle)]] (2026-08-07, 딥다이브 6문항 완주 · 재인출 4라운드 33%→50%→0%→100%. 약점 메모: "몰아서 갱신"의 주사율 상한 이득 재인출 누락, 위반 4종 정착에 4라운드(특히 백그라운드 위반 = 상태 변경 자체라는 정의), 트랜잭션은 본인 질문으로 뚫림. React·Flutter 비교는 본인 선택으로 범위 제외 — 노트 "더 파볼 질문" 참고)
 - [x] **View는 값 타입(struct)이다** → [[값으로서의 View (View as Value)]] (2026-08-07, 딥다이브 6문항 완주 · 재인출 4라운드 37.5%→60%→50%→100%. 약점 메모: identity 리셋 케이스 중 ForEach id 소멸, ".task는 body 재호출에 재시작 안 됨" 명시, @StateObject의 해결 메커니즘, 언어 강제력 vs 관례 — 노트 "더 파볼 질문" 참고)
 - [x] **값 의미론 (Value Semantics)** → [[값 의미론 (Value Semantics)]] (2026-08-06, 딥다이브 6문항 완주 · 재인출 4라운드 62.5%→66.7%→부분 통과→100%. 약점 메모: Obj-C 방어적 복사 사고 시나리오 재현, "관찰 가능한"이라는 수식어 — 노트의 "더 파볼 질문" 참고)
 - [x] **선언형 UI (Declarative UI)** → [[선언형 UI (Declarative UI)]] (2026-08-06, 딥다이브 6문항 완주 · 같은 날 재인출 재검증 3라운드 통과 50%→80%→100%)
