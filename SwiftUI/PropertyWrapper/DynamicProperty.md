@@ -1,5 +1,6 @@
 # DynamicProperty
-뷰의 저장 프로퍼티를 SwiftUI의 저장소·업데이트 사이클에 참여시키는 프로토콜.
+SwiftUI가 설치해 주는 타입(View·App·Scene·ViewModifier)의 저장 프로퍼티를
+SwiftUI의 저장소·업데이트 사이클에 참여시키는 프로토콜.
 모든 상태 래퍼([[@State]], [[@Binding]], [[@ObservedObject]], @FetchRequest…)가 채택한다.
 역할은 **"표식 하나, 훅 하나"**.
 
@@ -36,9 +37,14 @@ t4 body — count 읽기 = wrappedValue getter = 연결을 타고 저장소 읽�
 ### 언제 쓰면 안 되는가 — 설치 기준 "아직 / 영영 / 이미"
 | | 상황 | 왜 죽나 |
 | --- | --- | --- |
-| 아직 | 뷰 `init`에서 값 읽기/쓰기 | 설치 전이라 연결 없음 — "not installed on a View" 경고 |
-| 영영 | 뷰 아닌 클래스·전역에 선언 | SwiftUI는 뷰의 프로퍼티만 심사 |
+| 아직 | 뷰 `init`에서 값 읽기/쓰기 | 설치 전이라 연결 없음 — 런타임 경고(아래) |
+| 영영 | plain class·전역에 선언 | SwiftUI가 설치하는 그래프 밖이라 심사가 닿지 않는다 |
 | 이미 | 뷰 소멸 후 escaping closure에서 접근 | 저장소가 이미 파괴됨 |
+
+**"영영"의 기준은 "뷰인가"가 아니다.** View 말고 App·Scene·ViewModifier도 SwiftUI가 설치해 주고, 설치된 것이 품은 DynamicProperty도 재귀적으로 따라 들어간다(아래 Capped가 그 경우다). 죽는 건 **SwiftUI가 설치하는 그래프에 아예 매달리지 않은** 곳 — plain class, 전역 변수다
+
+> 런타임 경고 원문 (검색용):
+> `Accessing State's value outside of being installed on a View. This will result in a constant Binding of the initial value and will not update.`
 
 단 `_count = State(initialValue: 10)`은 init에서도 된다 — **상자 만들기는 연결을 안 거친다.** 안 되는 건 wrappedValue 접근(연결 필수)
 
@@ -47,7 +53,12 @@ t4 body — count 읽기 = wrappedValue getter = 연결을 타고 저장소 읽�
 ```swift
 @propertyWrapper
 struct Capped: DynamicProperty {     // 채택 → 설치 심사 대상
-    @State private var value = 0     // 품는 것은 이것 — 저장·갱신을 통째로 위임
+    @State private var value: Int    // 품는 것은 이것 — 저장·갱신을 통째로 위임
+
+    init(wrappedValue: Int) {        // @Capped var count = 5 의 `= 5`가 여기로 온다
+        _value = State(initialValue: min(wrappedValue, 100))  // 상자 만들기 — 연결 전이라 가능
+    }
+
     var wrappedValue: Int {
         get { value }
         nonmutating set { value = min(newValue, 100) }  // 내 로직은 창구에만
@@ -55,6 +66,8 @@ struct Capped: DynamicProperty {     // 채택 → 설치 심사 대상
 }
 ```
 @State 없이 만들면: 뷰 재생성마다 값 리셋 + 쓰기가 dirty를 못 일으켜 화면이 안 바뀐다 — 채택했어도 안에 설치할 물건이 없으면 그냥 지나간다
+
+`init(wrappedValue:)`가 **없으면 컴파일되지 않는다.** 초깃값을 줄 통로가 그것뿐이고, `@State private var value`가 합성해 주는 memberwise init은 `private`이라 같은 파일 밖에서는 쓸 수도 없다. 그리고 이 init이 `_value`에 직접 대입할 수 있는 근거가 위의 **"상자 만들기는 연결을 안 거친다"**
 
 ### 더 파볼 질문
 - 커스텀 래퍼에서 State의 나머지 반쪽 — "쓰기 → dirty → 화면 갱신"까지 State가 대신 해준다는 것 (재인출 약점)
