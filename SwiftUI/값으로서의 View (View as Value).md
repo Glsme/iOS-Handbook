@@ -68,7 +68,8 @@ diff가 요구하는 성질은 struct 자체가 아니라 **"이전 값이 변�
 
 ### @State 리셋의 실체 — 변신이 아니라 사망과 출생
 
-struct 값에는 identity가 없어, SwiftUI의 유일한 '같음' 기준은 자리(위치+타입)다.
+struct 값에는 identity가 없어, SwiftUI의 **기본** '같음' 기준은 자리(위치+타입)다
+(명시하면 `.id()`·ForEach의 id가 그 자리를 대신한다 — explicit identity).
 if↔else 전환을 SwiftUI는 "수정"이 아니라 **"제거 + 삽입"**으로 본다.
 identity 종료는 UIKit의 뷰 컨트롤러 deinit과 같다 — 주인이 죽었는데 짐(@State)을
 보관하면 누수일 뿐이라 함께 폐기되고, 새 identity는 초기값으로 빈손 시작한다.
