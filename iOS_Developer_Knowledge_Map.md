@@ -381,7 +381,7 @@
     - App protocol
     - Scene
     - [[값으로서의 View (View as Value)|View]]
-    - body
+    - [[View|View protocol / body]]
     - [[선언형 UI (Declarative UI)|declarative UI]]
     - state-driven rendering
     - [[DataFlow]]
