@@ -21,14 +21,13 @@
 
 ### Tier 1 — 상태 관리 코어
 
-- [ ] **@StateObject** — [[@ObservedObject]]와 무엇이 다르고, 왜 iOS 14에서 따로 추가됐나? (핸드북 링크 있으나 노트 없음)
-  - 연관: [[@ObservedObject]], [[DataFlow]]
-- [ ] **@StateObject vs @ObservedObject** — 소유와 전달의 구분. `@ObservedObject`에 객체를 직접 생성하면 왜 상태가 날아가는가?
-  - 맥락: 2026-08-07 [[값으로서의 View (View as Value)]] 딥다이브에서 "백지 상태 → 초기 화면" 증상까지 인출 성공, 해결 메커니즘(생성을 identity 수명에 묶음)은 미인출 — 여기서 이어서
 - [ ] **@EnvironmentObject** — 뷰 계층을 건너뛴 주입. 주입을 잊으면 왜 런타임 크래시인가? (링크 있으나 노트 없음)
+  - 맥락: 2026-08-08 [[@StateObject]] 딥다이브 대안 표에서 세 번째 소유 방식으로 등장 — 소유/빌림 축을 완성하는 자리
 - [ ] **@Environment / EnvironmentValues / EnvironmentKey** — 환경 값은 어떻게 아래로 전파되는가? 커스텀 키 정의와 iOS 18 `@Entry` 매크로 (링크 있으나 노트 없음)
 - [ ] **Observation / @Observable** — iOS 17의 새 관찰 방식. [[ObservableObject]]의 객체 단위 무효화 문제를 어떻게 프로퍼티 단위로 바꿨나? (링크 있으나 노트 없음)
-  - 연관: [[ObservableObject]], [[@Published]], [[Diffing]]
+  - 맥락: 2026-08-08 [[@StateObject]] 딥다이브 재인출에서 "프로퍼티 단위 무효화"는 인출 성공했으나
+    **대체 경로(@StateObject→@State, @ObservedObject→plain `let`)는 미통과** — @Query로 오답. 여기서 이어서
+  - 연관: [[ObservableObject]], [[@Published]], [[Diffing]], [[@StateObject]]
 - [ ] **withObservationTracking** — `@Observable` 매크로가 실제로 만들어내는 추적 메커니즘은?
 - [ ] **@Bindable** — `@Observable` 객체에 양방향 바인딩을 만드는 래퍼. [[@Binding]]과 어떻게 다른가?
 - [ ] **objectWillChange** — [[ObservableObject]]의 진짜 갱신 신호. willChange인 이유는?
@@ -116,11 +115,16 @@
 - [ ] **Mirror / 리플렉션** — Swift 런타임 메타데이터는 무엇을 알고 있고, Mirror는 어디까지 보여주는가? SwiftUI의 래퍼 "심사"가 서는 기반
   - 맥락: 2026-08-07, DynamicProperty 딥다이브 중 "리플렉션이 뭐야?" 질문에서 등장
   - 연관: [[DynamicProperty]]
+- [ ] **memberwise initializer 합성 규칙** — property wrapper가 붙은 저장 프로퍼티는 파라미터로 어떻게 노출되는가? 합성된 initializer의 접근 수준은 무엇이 정하는가? `@autoclosure` 지연은 그 경로에서도 유지되는가?
+  - 맥락: 2026-08-08, [[@StateObject]] 딥다이브에서 "private을 빼면 왜 위험한가"를 컴파일러 실측으로 확인했으나
+    재인출 미통과 — 언어 층 규칙 자체가 빈칸이었다("충돌"의 정체 = 두 계약의 모순, private이 막는 것 = 합성 initializer)
+  - 연관: [[@StateObject]], [[@propertyWrapper]], [[@State]]
 
 ## 진행 중
 
 ## 완료
 
+- [x] **@StateObject / @StateObject vs @ObservedObject** → [[@StateObject]] (2026-08-08, 딥다이브 6문항 **전부 미인출** 후 3단계 전면 설명 · 재인출 1라운드 71%(10/14)에서 본인 요청으로 중단. 인출 성공: 저장 위치 차이(struct 안 vs identity 저장소), "만드는 방법만 클로저로 전달", 객체가 죽는 시점(identity 종료), 외부 주입 함정, 기반 개념 Identity·DynamicProperty. 미통과 4건 — ① iOS 17 대체 경로를 @Query로 오답 ② init 인자 주입의 비대칭 함정("init은 매번 실행되나 결과는 첫 번째만 채택") ③ "충돌"의 정체가 두 계약의 모순이라는 점 ④ private이 막는 것이 memberwise initializer라는 점. ①은 Observation 항목에, ③④는 신규 "memberwise initializer 합성 규칙" 항목으로 승격)
 - [x] **@propertyWrapper (SE-0258)** → [[@propertyWrapper]] (2026-08-07, 딥다이브 6문항 완주 · 재인출 4라운드 73%→67%→67%→100%. 약점 메모: 여섯 문항 중 다섯에서 언어 층 질문에 SwiftUI로 답하는 패턴이 나와 백로그의 진단이 그대로 확증됨 — "컴파일은 언어 층, 실행은 프레임워크 층"이 4라운드에야 정착. 매크로와의 경계(프로퍼티 한 칸 vs 타입 전체)는 1라운드 완전 미답 후 회복, plain class 사례는 마지막 라운드에야 인출. 코드 작성 문항은 본인 요청으로 스킵 — 신규 백로그 "커스텀 래퍼 직접 작성 실습" 참고)
 - [x] **DynamicProperty** → [[DynamicProperty]] (2026-08-07, 딥다이브 6문항 완주 · 재인출 5라운드 10%→22%→43%→50%→100%. 약점 메모: update() 방향 오개념("값 변경 시 호출")을 잡는 데 2라운드, 커스텀 래퍼 "State를 품는다"는 5라운드에야 정착 — State의 나머지 반쪽(쓰기→dirty→갱신)은 끝까지 미인출, 기반 4개는 목록 암기 대신 인과 사슬("문제→어디→어떻게→누가")로 정착, 세션 중 wrappedValue·리플렉션 기초 질문이 등장해 언어 층이 약함이 드러남 — 노트 "더 파볼 질문"과 신규 백로그 @propertyWrapper·Mirror 참고)
 - [x] **뷰 업데이트 사이클** → [[뷰 업데이트 사이클 (View Update Cycle)]] (2026-08-07, 딥다이브 6문항 완주 · 재인출 4라운드 33%→50%→0%→100%. 약점 메모: "몰아서 갱신"의 주사율 상한 이득 재인출 누락, 위반 4종 정착에 4라운드(특히 백그라운드 위반 = 상태 변경 자체라는 정의), 트랜잭션은 본인 질문으로 뚫림. React·Flutter 비교는 본인 선택으로 범위 제외 — 노트 "더 파볼 질문" 참고)

@@ -388,7 +388,7 @@
 - 상태 관리 프로퍼티 래퍼
     - [[@State]]
     - [[@Binding]]
-    - @StateObject
+    - [[@StateObject]]
     - [[@ObservedObject]]
     - @EnvironmentObject
     - @Environment
