@@ -9,9 +9,6 @@
 
 ### Tier 0 — 토대 (이걸 모르면 상태 관리가 이해되지 않는다)
 
-- [ ] **불투명 반환 타입 (Opaque Return Type)** — `some View`가 제네릭·`any View`와 다른 이유는?
-  - 맥락: 2026-08-08 [[View]] 딥다이브에서 `any`(existential) 자체가 처음 만난 개념으로 드러남 —
-    some/any/제네릭 3자 비교부터 시작할 것. "상자 비유"(밀봉 상자 vs 안 정해진 상자)까지는 정착
 - [ ] **@ViewBuilder / Result Builder** — 중괄호 안에 나열한 뷰들이 어떻게 하나의 타입으로 합쳐지는가?
   - 맥락: 2026-08-08 [[View]] 딥다이브에서 _ConditionalContent 포장("Text 또는 Image라는 하나의 타입",
     return이 포장을 끈다)까지 인출 완료 — buildBlock·buildEither 변환 규칙이 남은 몫
@@ -115,6 +112,12 @@
 - [ ] **커스텀 래퍼 직접 작성 실습** — `@Clamped`·`@Capped`를 자료 없이 처음부터 코드로 쓰기. 창고(백킹 스토리지)와 창구(wrappedValue) 분리를 손으로 체화
   - 맥락: 2026-08-07, @propertyWrapper 딥다이브에서 코드 작성 문항을 스킵해 미실습으로 남음
   - 연관: [[@propertyWrapper]], [[DynamicProperty]]
+- [ ] **제네릭 (Generics)** — 타입을 정하는 쪽은 왜 호출자인가? 특수화(specialization)는 무엇을 하는가?
+  - 맥락: 2026-08-09 [[Opaque Type]] 딥다이브에서 결정권 축("컴파일러가 정한다" 오답)이 2라운드 연속 미통과 — 역방향 제네릭을 지탱하는 기반
+  - 연관: [[Opaque Type]]
+- [ ] **타입 소거 (Type Erasure)** — AnyView·AnyPublisher가 손으로 하는 일은 무엇인가? `any`(컴파일러 제공 상자)와 수동 소거는 무엇이 다른가?
+  - 맥락: 2026-08-09 [[Opaque Type]] 딥다이브에서 existential 컨테이너와 함께 등장
+  - 연관: [[Opaque Type]], [[View]]
 - [ ] **Mirror / 리플렉션** — Swift 런타임 메타데이터는 무엇을 알고 있고, Mirror는 어디까지 보여주는가? SwiftUI의 래퍼 "심사"가 서는 기반
   - 맥락: 2026-08-07, DynamicProperty 딥다이브 중 "리플렉션이 뭐야?" 질문에서 등장
   - 연관: [[DynamicProperty]]
@@ -129,6 +132,11 @@
   - 연관: [[@StateObject]], [[@propertyWrapper]], [[@State]]
 
 ## 진행 중
+
+- [ ] **불투명 타입 (Opaque Type)** → 초안 [[Opaque Type]] 저장됨 (2026-08-09, 미정리 표시 있음)
+  - 남은 질문: ① 결정권 축 — 제네릭 파라미터는 왜 호출자가 정하나, `feed(some Animal)` = `<T: Animal>` 축약 (2회 미통과, "컴파일러가 정한다" 오답 반복) ② SE-0309의 완화 방식(타입 전체 → 멤버 단위 잠금) ③ `body: some View`인 이유 3선택지 비교 ④ 기반 사슬(추방→반전→공짜→상자) ⑤ existential 컨테이너의 두 witness table
+  - 재인출 기록: 라운드1 31%(5/16) → 라운드2 33%(3/9)에서 본인 요청으로 중단. 정착 확인: 디스패치 축 전체(G-1·G-2), any "런타임 크래시" 오개념 교정(R2-1), 함수별 봉인 도장(R2-2), 역방향 제네릭(E-2), PAT 금지 이유(F-1)
+  - 출처 메모: WWDC 2022 "Embrace Swift generics", WWDC 2016 "Understanding Swift Performance"(existential 컨테이너), SE-0244/0309/0341/0346 (다음에 다시 검색하지 않도록)
 
 ## 완료
 

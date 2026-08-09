@@ -144,10 +144,10 @@
     - associatedtype
     - generic
     - where clause
-    - opaque type
+    - [[Opaque Type|opaque type]]
     - existentials
     - any
-    - some
+    - [[Opaque Type|some]]
 - 에러 처리
     - Result
     - Error
