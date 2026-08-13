@@ -50,6 +50,10 @@
 - [ ] **Lazy 컨테이너와 상태 수명** — `LazyVStack`에서 화면 밖으로 나간 뷰의 [[@State]]는 어떻게 되는가?
 - [ ] **@State 남용과 body 재호출 비용** — 상태를 어느 높이에 두느냐가 성능에 미치는 영향
   - 연관: [[Identity]], [[Diffing]], [[EquatableView]]
+- [ ] **뷰 트리의 인라인 평탄화와 AnyView의 비용** — `VStack { Text; Button }`이 런타임에 `VStack<TupleView<(Text, Button<Text>)>>` **값 하나**로 평탄화되는 것이 "재생성이 싼" 실체다. 그런데 [[값으로서의 View (View as Value)]]에는 "공짜 재생성"으로 적어 뒀는데, 뷰 struct는 String·클로저 같은 참조 필드를 품고 비교를 위해 프레임워크 저장소로 escape한다 — 어디까지가 공짜인가?
+  - 맥락: 2026-08-13, struct/class 메모리 비용 문답이 "그럼 SwiftUI가 View를 struct로 쓰는 이유가 이건가"로 이어짐
+  - 파볼 질문: ① 노드당 힙 할당이 0이 되는 근거는 수명이 아니라 **크기·타입의 정적 확정**(제네릭 특수화)이라는 점 확인 ② `AnyView`가 한 번에 깨뜨리는 것 — existential 박싱(힙 할당) + 정적 타입 소실로 인한 diff·identity 손실 ③ body 결과가 다음 비교를 위해 보관된다면 "스택에서 pop되며 사라진다"는 모델은 어디서 틀리는가
+  - 연관: [[값으로서의 View (View as Value)]], [[Diffing]], [[Identity]], [[View]] · [[Opaque Type]](②의 existential 박싱은 여기서 이어짐), "타입 소거"·"제네릭" 항목(Tier 외)
 
 ### Tier 4 — 앱 구조와 레이아웃
 
@@ -130,6 +134,11 @@
   - 맥락: 2026-08-08, [[@StateObject]] 딥다이브에서 "private을 빼면 왜 위험한가"를 컴파일러 실측으로 확인했으나
     재인출 미통과 — 언어 층 규칙 자체가 빈칸이었다("충돌"의 정체 = 두 계약의 모순, private이 막는 것 = 합성 initializer)
   - 연관: [[@StateObject]], [[@propertyWrapper]], [[@State]]
+- [ ] **struct/class의 메모리 비용** — struct가 싼 진짜 이유는 "스택을 써서"가 아니라 **수명이 컴파일 타임에 확정돼 런타임 부기(ARC)가 필요 없어서**다. 그렇다면 참조 필드를 품은 struct는 언제 class보다 비싸지는가?
+  - 맥락: 2026-08-13, "struct가 class보다 생성·해제 비용이 저렴하다"는 명제가 참인지 따지다 등장
+  - 파볼 질문: ① 스택 할당(sp 이동 1회) vs malloc(size class 판별·존·free list·락·시스템 콜)의 실제 비용 차이 ② 원자적 retain/release가 비싼 이유는 명령어 수인가, 캐시라인 배타 소유권과 주변 컴파일러 최적화 차단인가 ③ 참조 필드 N개짜리 struct 복사(retain N회)가 class 참조 복사(retain 1회)를 역전하는 지점 ④ escaping 클로저 캡처·existential 3워드 초과가 struct를 힙으로 끌고 가는 경계 ⑤ SROA·레지스터 전달로 할당 자체가 소멸하는 조건 ⑥ Instruments에서 `swift_allocObject`·`swift_retain` 비중을 실측하는 법
+  - 연관: [[값 의미론 (Value Semantics)]] — "저장 위치는 구현 세부사항"이라며 남겨 둔 지점이 정확히 여기.
+    ④는 [[Opaque Type]]의 existential 컨테이너와 같은 메커니즘 — "타입 소거" 항목과 붙여서 볼 것
 
 ## 진행 중
 
