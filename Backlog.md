@@ -34,16 +34,6 @@
 - [ ] **projectedValue와 `$`** — `$count`가 실제로 반환하는 것은 무엇인가?
 - [ ] **Binding 직접 만들기** — `Binding(get:set:)`, `.constant(_:)`를 언제 쓰는가?
 
-~~### Tier 2 — 저장·특수 목적 상태~~
-
-~~- [ ] **@AppStorage / @SceneStorage** — UserDefaults·상태 복원과 뷰를 잇는 래퍼. 언제 쓰면 안 되는가?~~
-~~- [ ] **@FocusState** — 키보드 포커스를 상태로 다루기~~
-~~- [ ] **@GestureState** — 제스처가 끝나면 자동으로 초기화되는 상태~~
-~~- [ ] **@Namespace** — `matchedGeometryEffect`의 식별 공간~~
-~~- [ ] **@ScaledMetric** — Dynamic Type에 따라 스케일되는 값~~
-~~- [ ] **@FetchRequest / @Query** — Core Data / SwiftData를 뷰에 직접 잇는 래퍼~~
-~~- [ ] **@UIApplicationDelegateAdaptor** — SwiftUI 앱에서 AppDelegate를 살리는 통로~~
-
 ### Tier 3 — 렌더링과 성능 (핸드북에 일부 있음)
 
 - [ ] **onChange(of:)** — iOS 17에서 시그니처와 호출 시점이 바뀐 이유는?
@@ -81,14 +71,6 @@
 - [ ] **Transaction 전파와 `.transaction` modifier** — 봉투가 뷰 트리를 타고 흐를 때 우선순위 규칙은? `withTransaction`과의 관계는?
   - 맥락: 2026-08-07, 뷰 업데이트 사이클 딥다이브에서 "트랜잭션은 어느 단계냐"는 질문으로 뚫린 갈래
   - 연관: [[뷰 업데이트 사이클 (View Update Cycle)]]
-
-### Tier 6 — 애니메이션
-
-~~- [ ] **withAnimation / .animation(_:value:)** — 암시적·명시적 애니메이션의 차이~~
-~~- [ ] **Transaction** — 애니메이션 컨텍스트가 뷰 트리를 타고 흐르는 방식~~
-~~- [ ] **Animatable / animatableData** — 커스텀 값을 애니메이션 가능하게 만들기~~
-~~`- [ ] **matchedGeometryEffect** — 두 뷰 사이의 전환 연결`~~
-~~- [ ] **transition / PhaseAnimator / KeyframeAnimator** — 등장·퇴장과 다단계 애니메이션~~
 
 ### Tier 7 — UIKit 연동과 아키텍처
 
@@ -139,6 +121,74 @@
   - 파볼 질문: ① 스택 할당(sp 이동 1회) vs malloc(size class 판별·존·free list·락·시스템 콜)의 실제 비용 차이 ② 원자적 retain/release가 비싼 이유는 명령어 수인가, 캐시라인 배타 소유권과 주변 컴파일러 최적화 차단인가 ③ 참조 필드 N개짜리 struct 복사(retain N회)가 class 참조 복사(retain 1회)를 역전하는 지점 ④ escaping 클로저 캡처·existential 3워드 초과가 struct를 힙으로 끌고 가는 경계 ⑤ SROA·레지스터 전달로 할당 자체가 소멸하는 조건 ⑥ Instruments에서 `swift_allocObject`·`swift_retain` 비중을 실측하는 법
   - 연관: [[값 의미론 (Value Semantics)]] — "저장 위치는 구현 세부사항"이라며 남겨 둔 지점이 정확히 여기.
     ④는 [[Opaque Type]]의 existential 컨테이너와 같은 메커니즘 — "타입 소거" 항목과 붙여서 볼 것
+
+---
+
+### ▍2026-08-14 배치 — Swift/iOS 기본기 (14항목)
+
+> 2026-08-14, Swift/iOS 기본기를 점검하며 한 번에 리스트업했다.
+> 위 SwiftUI 배치(2026-08-06)와 출처가 달라 따로 묶어 둔다.
+> 언어·디스패치를 뺀 나머지 6개 영역은 **핸드북에 노트가 하나도 없다** — 각 항목의 첫 질문이 곧 진입점이다.
+> 권장 순서: 언어 → 메모리 관리 → Swift Concurrency → 나머지(독립적이라 필요할 때 꺼내 쓴다).
+
+#### 언어 — 타입과 디스패치
+
+- [ ] **struct가 상속을 지원하지 않는 이유** — 값 타입에 상속을 허용하면 무엇이 깨지는가? 프로토콜 + 합성(composition)이 그 자리를 어떻게 대신하는가?
+  - 파볼 질문: ① 컴파일 타임 크기 확정과 상속(크기 확장)의 충돌 — object slicing 문제 ② vtable이 없는 타입에서 오버라이드를 표현할 방법이 애초에 있는가 ③ 프로토콜 기본 구현·제네릭 제약이 코드 재사용을 대체하는 경로 ④ class에 `final`을 붙이면 정적으로 무엇이 바뀌는가
+  - 연관: [[값 의미론 (Value Semantics)]], 메서드 디스패치 항목(바로 아래)
+- [ ] **메서드 디스패치 (static / vtable / witness table / message)** — 호출 대상이 언제 결정되느냐에 따라 네 경로가 갈린다. 각 경로의 비용과 최적화 여지는?
+  - 파볼 질문: ① struct·`final` class·extension이 정적 디스패치가 되는 이유 ② 상속 계층의 vtable과 프로토콜 준수의 witness table이 왜 다른 표인가 ③ `@objc dynamic`의 objc_msgSend 경로는 언제 필요한가 ④ WMO·devirtualization·specialization이 동적 호출을 정적으로 되돌리는 조건
+  - 연관: [[Opaque Type]](existential 컨테이너의 두 witness table과 직결), [[Protocol]]
+
+#### 메모리 관리
+
+- [ ] **ARC (Automatic Reference Counting)** — 참조 카운트를 올리고 내리는 코드는 누가 언제 넣는가? 카운트가 0이 되면 정확히 무슨 일이 일어나는가?
+  - 파볼 질문: ① retain/release 삽입이 컴파일 타임 결정이라는 점과 그 함의 ② strong·weak·unowned 카운트가 각각 어디에 기록되는가(객체 헤더 vs side table) ③ 추적형 GC와 비교해 얻는 것(결정적 해제, 일시정지 없음)과 잃는 것(순환 참조를 스스로 못 끊음) ④ `deinit` 호출 시점과 프로퍼티 해제 순서 ⑤ 힙 객체 헤더에 실제로 무엇이 들어 있는가
+  - 연관: [[값 의미론 (Value Semantics)]], struct/class의 메모리 비용 항목(Swift 언어)
+- [ ] **강한 참조 순환 (Strong Reference Cycle)** — 두 객체가 서로를 강하게 참조하면 왜 ARC가 손을 못 대는가? 클로저가 낄 때 고리는 어디서 닫히는가?
+  - 파볼 질문: ① 순환의 최소 조건은 "캡처했다"가 아니라 "서로 붙잡는 고리가 닫혔다"라는 구분 ② escaping 클로저에서 completion을 호출하지 않으면 왜 영구 미해제인가 ③ Timer·NotificationCenter처럼 시스템이 붙잡는 경우는 순환인가 단순 수명 연장인가 ④ 캡처 리스트 `[weak self]`가 실제로 하는 일과 캡처가 확정되는 시점 ⑤ Memory Graph Debugger·Leaks로 고리를 찾는 법
+  - 연관: [[클로저 (Closure)]]
+- [ ] **weak / unowned** — 둘 다 카운트를 올리지 않는데, 대상이 먼저 사라졌을 때 무엇이 달라지는가? unowned를 굳이 고를 이유는?
+  - 파볼 질문: ① weak가 자동으로 nil이 되는 메커니즘(side table, zeroing) ② `unowned`와 `unowned(unsafe)`의 실패 방식 차이 ③ weak 접근이 unowned보다 비싼 이유 ④ 수명 포함 관계(부모-자식)를 unowned로 표명해도 되는 판별 기준 ⑤ 크래시를 의도적으로 남기는 것이 설계 선택이 되는 경우 — required 의존성을 `fatalError` 맥락으로 강제하기
+- [ ] **힙과 스택** — 할당·해제 비용 차이는 어디서 오는가? Swift에서 어떤 값이 어느 쪽에 놓이는지는 무엇이 결정하는가?
+  - 파볼 질문: ① 스택 프레임의 sp 이동 1회 vs malloc의 전체 경로 ② struct가 힙으로 끌려가는 조건(클래스 프로퍼티에 담김, escaping 클로저 캡처, existential 3워드 초과) ③ "힙은 선형적이지 않다"의 실체 — free list, size class, 단편화 ④ iOS의 메모리 압박·jetsam과 힙 사용량의 관계
+  - 연관: [[가상 메모리(Virtual Memory)의 개념과 동작 원리]], struct/class의 메모리 비용 항목(Swift 언어)
+
+#### Swift Concurrency
+
+- [ ] **Structured Concurrency** — 부모-자식 관계를 언어가 보장하면 무엇이 공짜로 따라오는가?
+  - 파볼 질문: ① `async let`과 `withTaskGroup`이 각각 맞는 상황 ② "자식이 끝나기 전에 스코프를 벗어날 수 없다"는 규칙이 취소·에러 전파를 어떻게 단순하게 만드는가 ③ 상속되는 것의 정확한 목록 — 우선순위, actor 컨텍스트, task-local 값 ④ 취소가 협조적(cooperative)인 이유와 `Task.checkCancellation()`을 넣지 않았을 때의 결과
+  - 연관: [[Sendable]]
+- [ ] **Unstructured Concurrency — Task vs Task.detached** — `Task {}`가 상속하는 것과 `Task.detached`가 버리는 것의 정확한 목록은?
+  - 파볼 질문: ① Task는 actor 컨텍스트·우선순위·task-local을 상속하는데도 왜 unstructured인가(수명이 스코프에 묶이지 않음) ② 취소를 직접 관리한다는 것의 실무적 의미 — 핸들 보관, 소멸 시 cancel ③ `.task` modifier가 뷰 수명에 자동으로 묶이는 이유 ④ detached가 정당한 좁은 사례는 무엇인가
+- [ ] **MainActor와 actor 격리** — UI 상태 갱신이 안전한 근거가 "내부 직렬 큐"가 아니라 격리라면, 격리는 컴파일 타임에 무엇을 강제하는가?
+  - 파볼 질문: ① actor 격리와 DispatchQueue 직렬화의 차이 — 재진입(reentrancy), 큐를 점유하지 않고 await로 양보 ② `@MainActor`가 타입·함수·프로퍼티에 붙을 때 각각 달라지는 것 ③ `nonisolated`·`MainActor.assumeIsolated`가 필요해지는 지점 ④ Swift 6 엄격 동시성에서 런타임 경고가 컴파일 에러로 옮겨간 범위
+  - 연관: [[Sendable]], [[뷰 업데이트 사이클 (View Update Cycle)]], [[Migrate Swift 6]]
+- [ ] **프로퍼티 래퍼의 스레드 안전성** — 래퍼 자체는 아무것도 보장하지 않는다면, 안전을 붙이는 방법마다 무엇을 희생하는가?
+  - 파볼 질문: ① 직렬 큐 / 락(`os_unfair_lock`) / actor / atomic 네 구현의 비용과 한계 ② `wrappedValue`의 get-modify-set이 원자적이지 않아 생기는 read-modify-write 경합 ③ 래퍼를 actor로 만들 수 없는 이유(get/set이 동기 요구사항이라는 점) ④ Swift 6에서 래퍼가 Sendable을 만족하려면 무엇이 필요한가
+  - 연관: [[@propertyWrapper]], [[Singleton Multi Thread 전략]], [[Sendable]]
+
+#### Combine · 시간 기반 연산자
+
+- [ ] **debounce / throttle** — 둘 다 이벤트를 줄이는데 "무엇을 기준으로" 줄이는가? 어떤 입력에 어느 쪽이 맞는가?
+  - 파볼 질문: ① debounce는 마지막 이벤트 이후 침묵 구간을 기다리고, throttle은 고정 주기당 최대 1회 — 타임라인을 직접 그려 구분하기 ② throttle의 `latest` 옵션이 바꾸는 것(첫 값 vs 최신 값) ③ 이벤트가 끊기지 않고 계속 들어오면 debounce는 영원히 방출하지 않는가 ④ Combine과 RxSwift의 동작·기본값 차이 ⑤ `removeDuplicates`, `collect(.byTime:)`와 무엇이 다른가
+  - 연관: [[Combine]], [[Publisher]]
+
+#### 빌드·링킹
+
+- [ ] **정적 링크 vs 동적 링크** — 라이브러리가 앱에 합쳐지는 시점이 다르면 무엇이 연쇄적으로 달라지는가?
+  - 파볼 질문: ① 정적은 링커가 최종 실행 파일에 심볼을 합치고, 동적은 dyld가 실행 시 로드·바인딩한다는 구조 ② 바이너리 크기 / 런치 시간 / 프로세스 간 메모리 공유의 트레이드오프 ③ 정적 라이브러리를 여러 모듈이 참조할 때의 중복 심볼 문제 ④ `.framework`·`.xcframework`·static framework·Swift Package의 linkage 설정이 실제로 고르는 것 ⑤ 동적 라이브러리 개수가 앱 런치 시간에 미치는 영향(dyld 작업량)
+
+#### 테스트
+
+- [ ] **유닛 테스트와 UI 테스트** — 실행되는 프로세스부터 다르다면 속도·안정성·검증 범위는 어떻게 갈리는가?
+  - 파볼 질문: ① XCUITest가 앱과 별도 프로세스에서 접근성 계층을 통해 조작한다는 구조 ② 거기서 오는 flaky의 근원(타이밍·애니메이션)과 대기 전략 ③ 테스트 피라미드에서 UI 테스트를 얇게 유지하는 근거 ④ 회귀 검증을 UI 테스트로 잡을 때 시나리오 선정 기준 ⑤ CI에 물릴 때 실행 시간과 병렬화
+
+#### 아키텍처
+
+- [ ] **TCA (The Composable Architecture)** — State/Action/Reducer/Effect가 단방향 흐름을 어떻게 강제하는가? 그 대가는 무엇인가?
+  - 파볼 질문: ① Reducer가 순수 함수여야 하는 이유와 부작용을 Effect로 밀어내는 구조 ② Store·ViewStore가 뷰 갱신 범위를 좁히는 방식 ③ 테스트가 강력해지는 근거 — 상태 전이가 값 비교로 환원됨 ④ 보일러플레이트·컴파일 시간·학습 비용이라는 대가와 도입 판단 기준 ⑤ MVVM과 갈라지는 정확한 지점
+  - 연관: [[DataFlow]], 단방향 데이터 흐름 항목(Tier 7)
 
 ## 진행 중
 
