@@ -133,12 +133,16 @@
 
 #### 언어 — 타입과 디스패치
 
-- [ ] **struct가 상속을 지원하지 않는 이유** — 값 타입에 상속을 허용하면 무엇이 깨지는가? 프로토콜 + 합성(composition)이 그 자리를 어떻게 대신하는가?
-  - 파볼 질문: ① 컴파일 타임 크기 확정과 상속(크기 확장)의 충돌 — object slicing 문제 ② vtable이 없는 타입에서 오버라이드를 표현할 방법이 애초에 있는가 ③ 프로토콜 기본 구현·제네릭 제약이 코드 재사용을 대체하는 경로 ④ class에 `final`을 붙이면 정적으로 무엇이 바뀌는가
-  - 연관: [[값 의미론 (Value Semantics)]], 메서드 디스패치 항목(바로 아래)
 - [ ] **메서드 디스패치 (static / vtable / witness table / message)** — 호출 대상이 언제 결정되느냐에 따라 네 경로가 갈린다. 각 경로의 비용과 최적화 여지는?
   - 파볼 질문: ① struct·`final` class·extension이 정적 디스패치가 되는 이유 ② 상속 계층의 vtable과 프로토콜 준수의 witness table이 왜 다른 표인가 ③ `@objc dynamic`의 objc_msgSend 경로는 언제 필요한가 ④ WMO·devirtualization·specialization이 동적 호출을 정적으로 되돌리는 조건
   - 연관: [[Opaque Type]](existential 컨테이너의 두 witness table과 직결), [[Protocol]]
+
+- [ ] **vtable (Virtual Method Table)** — non-final class 인스턴스의 실제 타입에서 오버라이드된 메서드 구현을 어떤 경로로 찾는가?
+  - 맥락: 2026-08-20, struct 상속 제약과 class 디스패치를 구분하는 딥다이브에서 발견
+  - 연관: [[Protocol]], 메서드 디스패치 항목
+- [ ] **witness table** — 프로토콜 요구사항과 요구사항 밖 extension 메서드의 호출 경로가 왜 갈리는가?
+  - 맥락: 2026-08-20, struct 상속 제약과 class 디스패치를 구분하는 딥다이브에서 발견
+  - 연관: [[Protocol]], 메서드 디스패치 항목
 
 #### 메모리 관리
 
@@ -189,30 +193,3 @@
 - [ ] **TCA (The Composable Architecture)** — State/Action/Reducer/Effect가 단방향 흐름을 어떻게 강제하는가? 그 대가는 무엇인가?
   - 파볼 질문: ① Reducer가 순수 함수여야 하는 이유와 부작용을 Effect로 밀어내는 구조 ② Store·ViewStore가 뷰 갱신 범위를 좁히는 방식 ③ 테스트가 강력해지는 근거 — 상태 전이가 값 비교로 환원됨 ④ 보일러플레이트·컴파일 시간·학습 비용이라는 대가와 도입 판단 기준 ⑤ MVVM과 갈라지는 정확한 지점
   - 연관: [[DataFlow]], 단방향 데이터 흐름 항목(Tier 7)
-
-## 진행 중
-
-- [ ] **불투명 타입 (Opaque Type)** → 초안 [[Opaque Type]] 저장됨 (2026-08-09, 미정리 표시 있음)
-  - 남은 질문: ① 결정권 축 — 제네릭 파라미터는 왜 호출자가 정하나, `feed(some Animal)` = `<T: Animal>` 축약 (2회 미통과, "컴파일러가 정한다" 오답 반복) ② SE-0309의 완화 방식(타입 전체 → 멤버 단위 잠금) ③ `body: some View`인 이유 3선택지 비교 ④ 기반 사슬(추방→반전→공짜→상자) ⑤ existential 컨테이너의 두 witness table
-  - 재인출 기록: 라운드1 31%(5/16) → 라운드2 33%(3/9)에서 본인 요청으로 중단. 정착 확인: 디스패치 축 전체(G-1·G-2), any "런타임 크래시" 오개념 교정(R2-1), 함수별 봉인 도장(R2-2), 역방향 제네릭(E-2), PAT 금지 이유(F-1)
-  - 출처 메모: WWDC 2022 "Embrace Swift generics", WWDC 2016 "Understanding Swift Performance"(existential 컨테이너), SE-0244/0309/0341/0346 (다음에 다시 검색하지 않도록)
-
-## 완료
-
-- [x] **View 프로토콜 / body / `some View`** → [[View]] (2026-08-08, 딥다이브 6문항 중 ②만 부분 통과 후 전면 설명 · 재인출 5라운드 25%→50%→40%→67%→100%. 약점 메모: **컴파일 타임 질문에 identity(런타임 개념)로 답하는 패턴이 3회 재발** — "두 세계" 구분(컴파일 세계: 타입·준수·포장 / 런타임 세계: identity·diff·teardown)으로 교정, @propertyWrapper 때 "언어 층에 SwiftUI로 답하기"의 변형이라 취약 지대. AnyView teardown 기준이 최장 4라운드 — "값이 다르면 도배(업데이트·@State 유지), 타입이 다르면 철거(teardown·@State 소멸)"로 정착. Never "무한 호출" 오개념은 완전 교정("값 0개 → 반환 불가 → 즉시 크래시"). any(existential)는 처음 만난 개념 — 불투명 반환 타입 항목에 맥락 승계. 근소 통과로 남은 것: AnyView 설계의 "얻는 것" 쪽, _makeView 이후 픽셀 경로)
-- [x] **@StateObject / @StateObject vs @ObservedObject** → [[@StateObject]] (2026-08-08, 딥다이브 6문항 **전부 미인출** 후 3단계 전면 설명 · 재인출 1라운드 71%(10/14)에서 본인 요청으로 중단. 인출 성공: 저장 위치 차이(struct 안 vs identity 저장소), "만드는 방법만 클로저로 전달", 객체가 죽는 시점(identity 종료), 외부 주입 함정, 기반 개념 Identity·DynamicProperty. 미통과 4건 — ① iOS 17 대체 경로를 @Query로 오답 ② init 인자 주입의 비대칭 함정("init은 매번 실행되나 결과는 첫 번째만 채택") ③ "충돌"의 정체가 두 계약의 모순이라는 점 ④ private이 막는 것이 memberwise initializer라는 점. ①은 Observation 항목에, ③④는 신규 "memberwise initializer 합성 규칙" 항목으로 승격)
-- [x] **@propertyWrapper (SE-0258)** → [[@propertyWrapper]] (2026-08-07, 딥다이브 6문항 완주 · 재인출 4라운드 73%→67%→67%→100%. 약점 메모: 여섯 문항 중 다섯에서 언어 층 질문에 SwiftUI로 답하는 패턴이 나와 백로그의 진단이 그대로 확증됨 — "컴파일은 언어 층, 실행은 프레임워크 층"이 4라운드에야 정착. 매크로와의 경계(프로퍼티 한 칸 vs 타입 전체)는 1라운드 완전 미답 후 회복, plain class 사례는 마지막 라운드에야 인출. 코드 작성 문항은 본인 요청으로 스킵 — 신규 백로그 "커스텀 래퍼 직접 작성 실습" 참고)
-- [x] **DynamicProperty** → [[DynamicProperty]] (2026-08-07, 딥다이브 6문항 완주 · 재인출 5라운드 10%→22%→43%→50%→100%. 약점 메모: update() 방향 오개념("값 변경 시 호출")을 잡는 데 2라운드, 커스텀 래퍼 "State를 품는다"는 5라운드에야 정착 — State의 나머지 반쪽(쓰기→dirty→갱신)은 끝까지 미인출, 기반 4개는 목록 암기 대신 인과 사슬("문제→어디→어떻게→누가")로 정착, 세션 중 wrappedValue·리플렉션 기초 질문이 등장해 언어 층이 약함이 드러남 — 노트 "더 파볼 질문"과 신규 백로그 @propertyWrapper·Mirror 참고)
-- [x] **뷰 업데이트 사이클** → [[뷰 업데이트 사이클 (View Update Cycle)]] (2026-08-07, 딥다이브 6문항 완주 · 재인출 4라운드 33%→50%→0%→100%. 약점 메모: "몰아서 갱신"의 주사율 상한 이득 재인출 누락, 위반 4종 정착에 4라운드(특히 백그라운드 위반 = 상태 변경 자체라는 정의), 트랜잭션은 본인 질문으로 뚫림. React·Flutter 비교는 본인 선택으로 범위 제외 — 노트 "더 파볼 질문" 참고)
-- [x] **View는 값 타입(struct)이다** → [[값으로서의 View (View as Value)]] (2026-08-07, 딥다이브 6문항 완주 · 재인출 4라운드 37.5%→60%→50%→100%. 약점 메모: identity 리셋 케이스 중 ForEach id 소멸, ".task는 body 재호출에 재시작 안 됨" 명시, @StateObject의 해결 메커니즘, 언어 강제력 vs 관례 — 노트 "더 파볼 질문" 참고)
-- [x] **값 의미론 (Value Semantics)** → [[값 의미론 (Value Semantics)]] (2026-08-06, 딥다이브 6문항 완주 · 재인출 4라운드 62.5%→66.7%→부분 통과→100%. 약점 메모: Obj-C 방어적 복사 사고 시나리오 재현, "관찰 가능한"이라는 수식어 — 노트의 "더 파볼 질문" 참고)
-- [x] **선언형 UI (Declarative UI)** → [[선언형 UI (Declarative UI)]] (2026-08-06, 딥다이브 6문항 완주 · 같은 날 재인출 재검증 3라운드 통과 50%→80%→100%)
-- [x] **DataFlow** → [[DataFlow]] (2026-08-05)
-- [x] **@State** → [[@State]] (2026-05-14)
-- [x] **@Binding** → [[@Binding]] (2026-07-15)
-- [x] **@ObservedObject** → [[@ObservedObject]] (2026-08-05)
-- [x] **ObservableObject** → [[ObservableObject]] (2026-08-05)
-- [x] **@Published** → [[@Published]] (2026-08-05)
-- [x] **Identity** → [[Identity]] (2026-08-05)
-- [x] **Diffing** → [[Diffing]] (2026-08-05)
-- [x] **EquatableView** → [[EquatableView]] (2026-08-05)
