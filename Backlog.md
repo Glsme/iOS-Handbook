@@ -144,6 +144,10 @@
   - 맥락: 2026-08-20, struct 상속 제약과 class 디스패치를 구분하는 딥다이브에서 발견
   - 연관: [[Protocol]], 메서드 디스패치 항목
 
+- [ ] **Swift Intermediate Language (SIL)** — 타입 검사를 마친 Swift 소스는 어떤 단계를 거쳐 SIL로 낮아지며, SILGen·정규화/최적화 SIL·LLVM IR은 각각 무엇을 담당하는가?
+  - 맥락: 2026-08-20, Swift 컴파일러가 타입·디스패치·ARC 결정을 표현하는 중간 단계를 이해하기 위해 추가
+  - 연관: 메서드 디스패치 항목, [[Opaque Type]], ARC 항목
+
 #### 메모리 관리
 
 - [ ] **ARC (Automatic Reference Counting)** — 참조 카운트를 올리고 내리는 코드는 누가 언제 넣는가? 카운트가 0이 되면 정확히 무슨 일이 일어나는가?
