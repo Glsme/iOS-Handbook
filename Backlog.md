@@ -133,20 +133,34 @@
 
 #### 언어 — 타입과 디스패치
 
-- [ ] **메서드 디스패치 (static / vtable / witness table / message)** — 호출 대상이 언제 결정되느냐에 따라 네 경로가 갈린다. 각 경로의 비용과 최적화 여지는?
-  - 파볼 질문: ① struct·`final` class·extension이 정적 디스패치가 되는 이유 ② 상속 계층의 vtable과 프로토콜 준수의 witness table이 왜 다른 표인가 ③ `@objc dynamic`의 objc_msgSend 경로는 언제 필요한가 ④ WMO·devirtualization·specialization이 동적 호출을 정적으로 되돌리는 조건
-  - 연관: [[Opaque Type]](existential 컨테이너의 두 witness table과 직결), [[Protocol]]
+- [ ] **`@objc dynamic`과 message dispatch** — objc_msgSend 경로는 언제 *필요*한가? KVO·swizzling·selector가 이 경로를 요구하는 이유는?
+  - 맥락: 2026-08-25, 메서드 디스패치 딥다이브에서 범위를 좁히려고 의도적으로 제외한 갈래
+  - 연관: [[메서드 디스패치 (Method Dispatch)]]
 
 - [ ] **vtable (Virtual Method Table)** — non-final class 인스턴스의 실제 타입에서 오버라이드된 메서드 구현을 어떤 경로로 찾는가?
   - 맥락: 2026-08-20, struct 상속 제약과 class 디스패치를 구분하는 딥다이브에서 발견
-  - 연관: [[Protocol]], 메서드 디스패치 항목
+  - **2026-08-26: 경로·슬롯 확정은 [[메서드 디스패치 (Method Dispatch)]]에서 정리 완료.** 남은 몫은 표의 물리적 레이아웃(타입 메타데이터 항목과 함께 볼 것)
+  - 연관: [[Protocol]], [[메서드 디스패치 (Method Dispatch)]]
 - [ ] **witness table** — 프로토콜 요구사항과 요구사항 밖 extension 메서드의 호출 경로가 왜 갈리는가?
   - 맥락: 2026-08-20, struct 상속 제약과 class 디스패치를 구분하는 딥다이브에서 발견
-  - 연관: [[Protocol]], 메서드 디스패치 항목
+  - **2026-08-26: 이 질문 자체는 [[메서드 디스패치 (Method Dispatch)]]에서 해소됨**(요구사항만 표에 칸을 얻는다). 남은 몫은 PWT의 실제 레코드 구조와 조건부 준수의 런타임 인스턴스화
+  - 연관: [[Protocol]], [[메서드 디스패치 (Method Dispatch)]]
 
 - [ ] **Swift Intermediate Language (SIL)** — 타입 검사를 마친 Swift 소스는 어떤 단계를 거쳐 SIL로 낮아지며, SILGen·정규화/최적화 SIL·LLVM IR은 각각 무엇을 담당하는가?
   - 맥락: 2026-08-20, Swift 컴파일러가 타입·디스패치·ARC 결정을 표현하는 중간 단계를 이해하기 위해 추가
   - 연관: 메서드 디스패치 항목, [[Opaque Type]], ARC 항목
+
+- [ ] **재귀 enum과 `indirect`** — 직접·상호 재귀 enum의 크기 계산을 indirect가 어떻게 박싱해 끊는가? class 재귀와 어떤 트레이드오프인가?
+  - 맥락: 2026-08-20, struct의 직접 재귀와 간접 참조를 구분하는 딥다이브에서 발견
+  - 연관: [[값 의미론 (Value Semantics)]], 힙과 스택 항목
+- [ ] **타입 메타데이터 (Type Metadata)** — 컴파일러와 런타임은 타입의 크기·정렬·필드·프로토콜 준수 정보를 각각 어디에 두고 언제 조회하는가?
+  - 맥락: 2026-08-20, class 인스턴스에서 vtable로 가는 경로를 학습하며 발견
+  - 연관: vtable 항목, witness table 항목, Mirror / 리플렉션 항목
+
+- [ ] **컴파일러 최적화 파이프라인 — 인라인 다음에 오는 것들** — 인라인이 열어주는 최적화들은 서로를 어떻게 물고 이어지는가? 그리고 devirtualization이 *원리적으로* 불가능해지는 조건은?
+  - 맥락: 2026-08-26, 메서드 디스패치 딥다이브에서 "동적 디스패치 비용의 본체 = 최적화 연쇄가 끊기는 것"까지는 정착했으나, 그 연쇄의 내용물은 디스패치가 아니라 최적화 쪽 주제라 분리
+  - 파볼 질문: ① 상수 전파·죽은 분기 제거·루프 불변식 이동·SROA가 인라인 뒤에 이어지는 순서 ② 증명이 서지 않는 조건 — `open`, library evolution, 모듈 경계를 넘는 `public` 호출, `[any P]` 순회 ③ `@inlinable`이 모듈 경계에서 여는 것과 그 대가(ABI 고정) ④ Debug/Release에서 실제로 달라지는 것을 SIL로 확인하는 법
+  - 연관: [[메서드 디스패치 (Method Dispatch)]], Swift Intermediate Language (SIL) 항목
 
 #### 메모리 관리
 
@@ -197,3 +211,11 @@
 - [ ] **TCA (The Composable Architecture)** — State/Action/Reducer/Effect가 단방향 흐름을 어떻게 강제하는가? 그 대가는 무엇인가?
   - 파볼 질문: ① Reducer가 순수 함수여야 하는 이유와 부작용을 Effect로 밀어내는 구조 ② Store·ViewStore가 뷰 갱신 범위를 좁히는 방식 ③ 테스트가 강력해지는 근거 — 상태 전이가 값 비교로 환원됨 ④ 보일러플레이트·컴파일 시간·학습 비용이라는 대가와 도입 판단 기준 ⑤ MVVM과 갈라지는 정확한 지점
   - 연관: [[DataFlow]], 단방향 데이터 흐름 항목(Tier 7)
+
+---
+
+## 완료
+
+- [x] **메서드 디스패치** → [[메서드 디스패치 (Method Dispatch)]] (2026-08-26)
+  - 4단계 재인출: 라운드 1 `1/10` → 3 `6/10` → 4 `7/8` → 5 `2/2`로 게이트 통과
+  - 정착한 축: **표에 자리가 있는가**(정적/동적) vs **class냐 protocol이냐**(어느 표) — 두 축을 섞던 오개념이 교정됨
