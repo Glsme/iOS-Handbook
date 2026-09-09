@@ -86,10 +86,11 @@
 
 #### 메모리 관리
 
-- [ ] **ARC (Automatic Reference Counting)**
 - [ ] **강한 참조 순환 (Strong Reference Cycle)**
 - [ ] **weak / unowned**
 - [ ] **힙과 스택**
+- [ ] **side table**
+- [ ] **~Copyable**
 
 #### Swift Concurrency
 
@@ -118,3 +119,9 @@
 #### 아키텍처
 
 - [ ] **TCA (The Composable Architecture)**
+
+---
+
+## 완료
+
+- [x] **ARC (Automatic Reference Counting)** → [[ARC (Automatic Reference Counting)]] (2026-09-09)
