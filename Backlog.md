@@ -65,6 +65,7 @@
 - [ ] **커스텀 래퍼 직접 작성 실습**
 - [ ] **제네릭 (Generics)**
 - [ ] **타입 소거 (Type Erasure)**
+- [ ] **`any`와 존재 타입 (Existential Type)**
 - [ ] **Mirror / 리플렉션**
 - [ ] **Never / uninhabited type**
 - [ ] **memberwise initializer 합성 규칙**
