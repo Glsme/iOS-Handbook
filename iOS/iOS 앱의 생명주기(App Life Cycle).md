@@ -119,3 +119,8 @@ applicationWillTerminate(_:)
 	- `URLSession(configuration:delegate:delegateQueue:)` 에서 백그라운드 세션 구성
 - Core Location
 	- 위치 기반 서비스앱은 Background Modes를 활성화하여 지속적 위치 추적 가능
+
+---
+## 관련 개념
+- [[iOS]]
+- [[SwiftUI]]

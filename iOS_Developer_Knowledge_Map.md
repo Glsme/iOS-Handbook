@@ -8,23 +8,28 @@
 - 학습 로드맵 체크리스트로 사용
 - 팀 온보딩, 면접 준비, 기술 평가 기준으로 사용
 
+## 허브 노트
+
+- [[Swift]] · [[Swift_Concurrency]] · [[SwiftUI]] · [[Combine]] · [[iOS]]
+- [[CS]] · [[자료구조]] · [[알고리즘]]
+
 ---
 
 ## 1. 컴퓨터 공학 기초
 
-- 자료구조
+- [[자료구조]]
     - 선형 구조
-        - 배열
-        - 연결 리스트
-        - 스택
-        - 큐
+        - [[배열, 연결 리스트, 스택, 큐의 특징과 iOS에서의 구현 방법|배열]]
+        - [[배열, 연결 리스트, 스택, 큐의 특징과 iOS에서의 구현 방법|연결 리스트]]
+        - [[배열, 연결 리스트, 스택, 큐의 특징과 iOS에서의 구현 방법|스택]]
+        - [[배열, 연결 리스트, 스택, 큐의 특징과 iOS에서의 구현 방법|큐]]
         - 덱
     - 비선형 구조
-        - 트리
+        - [[트리 (Tree)|트리]]
         - 힙
-        - 그래프
+        - [[그래프]]
     - 해시 기반
-        - 해시 테이블
+        - [[해시 테이블의 개념과 충돌 해결 방법|해시 테이블]]
         - 셋
 - 우선순위 큐
 - [[알고리즘]]
@@ -81,7 +86,7 @@
     - 상수
     - 타입 추론
     - 기본 타입
-- Optional
+- [[Optional (옵셔널)|Optional]]
     - Optional binding
     - guard
     - if let
@@ -91,7 +96,7 @@
     - inout
     - 반환 타입
     - 튜플
-- 클로저
+- [[클로저 (Closure)|클로저]]
     - trailing closure
     - escaping closure
     - autoclosure
@@ -113,7 +118,7 @@
         - raw value
     - 구조체
     - 클래스
-    - 값 타입
+    - [[값 의미론 (Value Semantics)|값 타입]]
     - 참조 타입
     - [[값 의미론 (Value Semantics)|값 의미론]]
 - 메서드와 초기화
@@ -160,7 +165,7 @@
 ## 3. Swift 심화
 
 - 메모리 관리
-    - ARC
+    - [[ARC (Automatic Reference Counting)|ARC]]
     - strong reference
     - weak reference
     - unowned reference
@@ -172,9 +177,9 @@
     - 메타타입
     - reflection
     - Mirror
-    - 디스패치
-        - dynamic dispatch
-        - static dispatch
+    - [[메서드 디스패치 (Method Dispatch)|디스패치]]
+        - [[메서드 디스패치 (Method Dispatch)|dynamic dispatch]]
+        - [[메서드 디스패치 (Method Dispatch)|static dispatch]]
         - witness table
         - vtable
         - protocol witness
@@ -182,7 +187,7 @@
     - ABI
     - module
     - package
-- Swift Concurrency
+- [[Swift_Concurrency|Swift Concurrency]]
     - concurrency model
     - actor isolation
     - [[Sendable]]
@@ -194,8 +199,8 @@
     - task group
     - continuations
     - async sequence
-    - Swift 6 strict concurrency
-    - complete concurrency checking
+    - [[Migrate Swift 6|Swift 6 strict concurrency]]
+    - [[Migrate Swift 6|complete concurrency checking]]
 - 메타프로그래밍
     - [[@propertyWrapper|property wrapper]]
     - result builder
@@ -290,12 +295,12 @@
 
 ## 5. iOS 앱 구조와 생명주기
 
-- App lifecycle
+- [[iOS 앱의 생명주기(App Life Cycle)|App lifecycle]]
     - UIApplication
     - UIApplicationDelegate
     - UIScene
     - UISceneDelegate
-    - scene lifecycle
+    - [[iOS 앱의 생명주기(App Life Cycle)|scene lifecycle]]
     - process lifecycle
 - 앱 상태
     - foreground
@@ -363,7 +368,7 @@
     - gesture recognizer
     - animation
     - transition
-- Auto Layout
+- [[Auto Layout]]
     - constraint
     - intrinsic content size
     - hugging
@@ -556,7 +561,7 @@
     - factory
 - GoF 디자인 패턴
     - 생성 패턴
-        - Singleton
+        - [[싱글톤 패턴 (Singleton Pattern)|Singleton]]
         - Prototype
     - 구조 패턴
         - Decorator
@@ -605,7 +610,7 @@
 - 콜백 기반
     - completion handler
     - callback
-    - closure capture
+    - [[클로저 (Closure)|closure capture]]
 - GCD
     - DispatchQueue
     - serial queue
@@ -620,7 +625,7 @@
     - thread confinement
     - main thread
     - UI thread safety
-- Swift_Concurrency
+- [[Swift_Concurrency]]
     - async/await
     - Task
     - TaskGroup
@@ -743,7 +748,7 @@
 
 - 간단한 저장소
     - UserDefaults
-    - Keychain
+    - [[암호화와 보안의 기본 개념, 그리고 iOS 앱 보안을 위한 방안|Keychain]]
 - 파일 시스템
     - FileManager
     - sandbox
@@ -752,7 +757,7 @@
     - temporary directory
     - plist
     - JSON file storage
-- SQLite
+- [[데이터베이스의 종류와 iOS에서 주로 사용되는 데이터베이스|SQLite]]
 - Core Data
     - NSManagedObject
     - NSFetchRequest
@@ -765,7 +770,7 @@
     - 마이그레이션
         - lightweight migration
         - manual migration
-- SwiftData
+- [[데이터베이스의 종류와 iOS에서 주로 사용되는 데이터베이스|SwiftData]]
     - ModelContainer
     - ModelContext
     - @Model
@@ -773,14 +778,14 @@
 - 클라우드 동기화
     - CloudKit sync
 - 기타 DB
-    - Realm 개념
+    - [[데이터베이스의 종류와 iOS에서 주로 사용되는 데이터베이스|Realm 개념]]
     - database normalization
 - 캐시 전략
     - local cache
     - offline-first
     - cache invalidation
     - eviction policy
-- 보안
+- [[암호화와 보안의 기본 개념, 그리고 iOS 앱 보안을 위한 방안|보안]]
     - encryption at rest
 
 ## 13. 보안과 개인정보
@@ -1037,7 +1042,7 @@
     - Observation
 - 데이터 프레임워크
     - Core Data
-    - SwiftData
+    - [[데이터베이스의 종류와 iOS에서 주로 사용되는 데이터베이스|SwiftData]]
 - 그래픽과 미디어
     - Core Animation
     - Core Graphics
@@ -1308,8 +1313,8 @@
 ## 25. 면접에서 자주 확인되는 주제
 
 - Swift 기본
-    - ARC 설명
-    - struct vs class
+    - [[ARC (Automatic Reference Counting)|ARC 설명]]
+    - [[struct가 상속을 지원하지 않는 이유|struct vs class]]
     - [[값 의미론 (Value Semantics)|value semantics]]
     - [[값 의미론 (Value Semantics)|copy-on-write]]
     - protocol vs inheritance
@@ -1321,9 +1326,9 @@
     - async/await vs Combine
     - actor와 thread safety
 - UI
-    - UIKit lifecycle
+    - [[iOS 앱의 생명주기(App Life Cycle)|UIKit lifecycle]]
     - SwiftUI rendering
-    - Auto Layout 충돌 원인
+    - [[Auto Layout#Ambiguous Layout과 Unsatisfiable Constraints|Auto Layout 충돌 원인]]
     - table/collection view 재사용
 - 데이터와 네트워크
     - Core Data 동시성
@@ -1380,15 +1385,15 @@
 
 - Swift 기초
 - UIKit 또는 SwiftUI 한 축
-- Auto Layout
+- [[Auto Layout]]
 - 네트워킹 기초
 - 테이블/리스트 UI
-- 앱 생명주기
+- [[iOS 앱의 생명주기(App Life Cycle)|앱 생명주기]]
 - Git 기초
 
 ### 주니어
 
-- ARC
+- [[ARC (Automatic Reference Counting)|ARC]]
 - 비동기 처리
 - 아키텍처 기본
 - 테스트 기초
@@ -1401,7 +1406,7 @@
 
 - 모듈화
 - 성능 최적화
-- 보안
+- [[암호화와 보안의 기본 개념, 그리고 iOS 앱 보안을 위한 방안|보안]]
 - CI/CD
 - 고급 상태 관리
 - Swift 심화

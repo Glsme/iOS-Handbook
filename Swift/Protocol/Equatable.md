@@ -87,3 +87,8 @@ enum Gender: Equatable {
 }
 ```
 
+---
+## 관련 개념
+- [[Protocol]]
+- [[Hashable]]
+- [[EquatableView]]

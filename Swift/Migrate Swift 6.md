@@ -19,3 +19,9 @@ https://swiftpackageindex.com/ready-for-swift-6
 
 
 Tuist version: 4.48.1
+
+---
+## 관련 개념
+- [[Swift]]
+- [[Swift_Concurrency]]
+- [[Sendable]]

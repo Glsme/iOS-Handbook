@@ -8,12 +8,8 @@
 
 ## 캡쳐 기능
 
-
-
-
-
-
-
-
-
-
+---
+## 관련 개념
+- [[Swift]]
+- [[ARC (Automatic Reference Counting)]]
+- [[값 의미론 (Value Semantics)]]

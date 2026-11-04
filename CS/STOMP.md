@@ -68,3 +68,7 @@ frame에 body가 포함되어있는 경우 필수로 넣어주어야 함 (SEND, 
 그 외 세부 COMMAND에 대한 내용은 아래 링크에 정리되어 있음
 
 [STOMP](http://stomp.github.io/)
+
+---
+## 관련 개념
+- [[CS]]

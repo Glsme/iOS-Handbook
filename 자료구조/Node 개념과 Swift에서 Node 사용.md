@@ -138,3 +138,11 @@ class Node<T> {
 		self.next = next
 	}
 }
+
+---
+## 관련 개념
+- [[자료구조]]
+- [[배열, 연결 리스트, 스택, 큐의 특징과 iOS에서의 구현 방법]]
+- [[트리 (Tree)]]
+- [[그래프]]
+- [[ARC (Automatic Reference Counting)]]

@@ -27,3 +27,9 @@ actor Singleton {
 	func setToken(_ t: String?) { token = t }
 }
 ```
+
+---
+## 관련 개념
+- [[싱글톤 패턴 (Singleton Pattern)]]
+- [[Swift_Concurrency]]
+- [[Sendable]]

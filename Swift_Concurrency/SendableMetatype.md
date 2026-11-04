@@ -3,3 +3,8 @@ Data race의 위험 없이 임의의 동시 컨텍스트에서 메타 타입을 
 ```swift
 protocol SendableMetatype: ~Copyable, ~Escapable
 ```
+
+---
+## 관련 개념
+- [[Swift_Concurrency]]
+- [[Sendable]]

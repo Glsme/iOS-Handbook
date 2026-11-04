@@ -17,4 +17,8 @@
 - [[@Published]]
 - [[ObservableObject]]
 
-
+---
+## 관련 MOC
+- [[SwiftUI]]
+- [[Swift]]
+- [[Swift_Concurrency]]

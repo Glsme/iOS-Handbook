@@ -21,3 +21,6 @@
 
 # OMC 상태
 .omc/
+
+# Claude 정리 전 백업
+.claude_backup_*

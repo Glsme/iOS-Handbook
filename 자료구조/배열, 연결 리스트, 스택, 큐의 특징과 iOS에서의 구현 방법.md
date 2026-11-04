@@ -185,3 +185,10 @@ struct Queue<T> {
 }
 ```
 
+---
+## 관련 개념
+- [[자료구조]]
+- [[Array와 List의 차이점]]
+- [[Node 개념과 Swift에서 Node 사용]]
+- [[자료구조 종류]]
+- [[값 의미론 (Value Semantics)]]

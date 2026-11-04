@@ -58,3 +58,9 @@ CPU가 가상 주소를 물리 주소로 변환하는 속도를 높이기 위한
 
 ## 가상 메모리 단점
 - 쓰레싱 (Thrashing): 실행하려는 프로그램이 너무 많아서 CPU가 실제 연산보다 페이지 교체에 더 많은 시간을 사용하는 상태
+
+---
+## 관련 개념
+- [[CS]]
+- [[ARC (Automatic Reference Counting)]]
+- [[값 의미론 (Value Semantics)]]

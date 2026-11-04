@@ -39,3 +39,8 @@ user?.profile?.updateAvatar()
 - 초기화 직후 반드시 채워지는 프로퍼티 (ex: 일부 `@IBOutlet`)
 - 초기화 순환 문제를 피하기 위한 제한적 상황
 - 테스트 코드 `sut`
+
+---
+## 관련 개념
+- [[Swift]]
+- [[Equatable]]
