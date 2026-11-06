@@ -102,7 +102,10 @@
 
 #### Combine · 시간 기반 연산자
 
-- [ ] **debounce / throttle**
+- [ ] **RunLoop와 RunLoop Mode**
+- [ ] **Swift Async Algorithms와 Clock**
+- [ ] **Combine throttle의 첫 값 방출과 구간 경계**
+- [ ] **이벤트 버퍼링과 앱 종료 시 유실 방지**
 
 #### 빌드·링킹
 
@@ -126,3 +129,4 @@
 ## 완료
 
 - [x] **ARC (Automatic Reference Counting)** → [[ARC (Automatic Reference Counting)]] (2026-09-09)
+- [x] **debounce / throttle** → [[debounce]], [[throttle]] (2026-11-06)
