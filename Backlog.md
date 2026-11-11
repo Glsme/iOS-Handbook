@@ -13,7 +13,6 @@
 
 ### Tier 1 — 상태 관리 코어
 
-- [ ] **@EnvironmentObject**
 - [ ] **@Environment / EnvironmentValues / EnvironmentKey**
 - [ ] **Observation / @Observable**
 - [ ] **withObservationTracking**
@@ -28,6 +27,7 @@
 - [ ] **Lazy 컨테이너와 상태 수명**
 - [ ] **@State 남용과 body 재호출 비용**
 - [ ] **뷰 트리의 인라인 평탄화와 AnyView의 비용**
+- [ ] **body에서 읽지 않는 @EnvironmentObject의 무효화 여부**
 
 ### Tier 4 — 앱 구조와 레이아웃
 
@@ -130,3 +130,4 @@
 
 - [x] **ARC (Automatic Reference Counting)** → [[ARC (Automatic Reference Counting)]] (2026-09-09)
 - [x] **debounce / throttle** → [[debounce]], [[throttle]] (2026-11-06)
+- [x] **@EnvironmentObject** → [[@EnvironmentObject]] (2026-11-11)
