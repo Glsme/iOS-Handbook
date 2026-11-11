@@ -12,13 +12,17 @@
 
 - [[Swift]] · [[Swift_Concurrency]] · [[SwiftUI]] · [[Combine]] · [[iOS]]
 - [[CS]] · [[자료구조]] · [[알고리즘]]
+- [[기본기 8주 로드맵]]
 
 ---
 
 ## 1. 컴퓨터 공학 기초
 
 - [[자료구조]]
+    - [[자료구조 종류]]
     - 선형 구조
+        - [[Array와 List의 차이점]]
+        - [[Node 개념과 Swift에서 Node 사용|Node]]
         - [[배열, 연결 리스트, 스택, 큐의 특징과 iOS에서의 구현 방법|배열]]
         - [[배열, 연결 리스트, 스택, 큐의 특징과 iOS에서의 구현 방법|연결 리스트]]
         - [[배열, 연결 리스트, 스택, 큐의 특징과 iOS에서의 구현 방법|스택]]
@@ -34,6 +38,7 @@
 - 우선순위 큐
 - [[알고리즘]]
     - [[정렬]]
+        - [[버블 정렬]]
     - 탐색
     - 이분 탐색
     - DFS
@@ -53,6 +58,7 @@
     - 힙 메모리
     - 코드 영역
     - 데이터 영역
+    - [[가상 메모리(Virtual Memory)의 개념과 동작 원리|가상 메모리]]
 - 운영체제 기초
     - 프로세스
     - 스레드
@@ -144,6 +150,9 @@
 - 프로토콜과 확장
     - extension
     - [[Protocol]]
+        - [[Equatable]]
+        - [[Hashable]]
+        - [[Identifiable]]
     - protocol extension
 - 제네릭과 타입 추상화
     - associatedtype
@@ -191,6 +200,7 @@
     - concurrency model
     - actor isolation
     - [[Sendable]]
+        - [[SendableMetatype]]
     - @MainActor
     - global actor
     - task cancellation
@@ -390,12 +400,12 @@
     - [[선언형 UI (Declarative UI)|declarative UI]]
     - state-driven rendering
     - [[DataFlow]]
-- 상태 관리 프로퍼티 래퍼
+- [[PropertyWrapper|상태 관리 프로퍼티 래퍼]]
     - [[@State]]
     - [[@Binding]]
     - [[@StateObject]]
     - [[@ObservedObject]]
-    - @EnvironmentObject
+    - [[@EnvironmentObject]]
     - @Environment
     - @Bindable
     - @Observable
@@ -562,6 +572,7 @@
 - GoF 디자인 패턴
     - 생성 패턴
         - [[싱글톤 패턴 (Singleton Pattern)|Singleton]]
+            - [[Singleton Multi Thread 전략]]
         - Prototype
     - 구조 패턴
         - Decorator
@@ -638,6 +649,12 @@
     - continuation
 - [[Combine]]
     - [[Publisher]]
+        - [[Just]]
+        - [[Future]]
+        - [[Deferred]]
+        - [[Empty]]
+        - [[Fail]]
+        - [[Record]]
     - [[Subscriber]]
     - [[Subject]]
         - [[Combine/Subject/CurrentValueSubject.md|CurrentValueSubject]]
@@ -647,8 +664,8 @@
         - sink
         - assign
     - 연산자
-        - debounce
-        - throttle
+        - [[debounce]]
+        - [[throttle]]
         - merge
         - zip
         - combineLatest
@@ -722,6 +739,7 @@
     - REST API
     - GraphQL
     - WebSocket
+        - [[STOMP]]
     - SSE
     - gRPC 개념
     - polling
@@ -1327,7 +1345,7 @@
     - actor와 thread safety
 - UI
     - [[iOS 앱의 생명주기(App Life Cycle)|UIKit lifecycle]]
-    - SwiftUI rendering
+    - [[뷰 업데이트 사이클 (View Update Cycle)|SwiftUI rendering]]
     - [[Auto Layout#Ambiguous Layout과 Unsatisfiable Constraints|Auto Layout 충돌 원인]]
     - table/collection view 재사용
 - 데이터와 네트워크
