@@ -13,7 +13,7 @@
 
 ### Tier 1 — 상태 관리 코어
 
-- [ ] **@Environment / EnvironmentValues / EnvironmentKey**
+- [ ] **environment 값 변경의 전파 경로**
 - [ ] **Observation / @Observable**
 - [ ] **withObservationTracking**
 - [ ] **@Bindable**
@@ -70,6 +70,8 @@
 - [ ] **Never / uninhabited type**
 - [ ] **memberwise initializer 합성 규칙**
 - [ ] **struct/class의 메모리 비용**
+- [ ] **KeyPath**
+- [ ] **KVO (Key-Value Observing)**
 
 ---
 
@@ -131,3 +133,4 @@
 - [x] **ARC (Automatic Reference Counting)** → [[ARC (Automatic Reference Counting)]] (2026-09-09)
 - [x] **debounce / throttle** → [[debounce]], [[throttle]] (2026-11-06)
 - [x] **@EnvironmentObject** → [[@EnvironmentObject]] (2026-11-11)
+- [x] **@Environment / EnvironmentValues / EnvironmentKey** → [[@Environment]] (2026-11-11)
