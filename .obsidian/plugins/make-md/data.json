@@ -39,13 +39,12 @@
   "deleteFileOption": "trash",
   "expandedSpaces": [
     "/",
-    "//Combine/Combine/Publisher",
     "//SwiftUI/SwiftUI/Rendering",
     "//SwiftUI/SwiftUI/PropertyWrapper",
-    "//Swift",
     "//iOS",
     "//_workspace",
-    "//Combine"
+    "//Combine",
+    "//SwiftUI"
   ],
   "expandFolderOnClick": true,
   "spacesFolder": "Tags",
