@@ -134,3 +134,4 @@
 - [x] **debounce / throttle** → [[debounce]], [[throttle]] (2026-11-06)
 - [x] **@EnvironmentObject** → [[@EnvironmentObject]] (2026-11-11)
 - [x] **@Environment / EnvironmentValues / EnvironmentKey** → [[@Environment]] (2026-11-11)
+- [x] **클로저 (Closure)** → [[클로저 (Closure)]] (2026-11-17)
