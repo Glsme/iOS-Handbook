@@ -90,7 +90,6 @@
 #### 메모리 관리
 
 - [ ] **강한 참조 순환 (Strong Reference Cycle)**
-- [ ] **weak / unowned**
 - [ ] **힙과 스택**
 - [ ] **side table**
 - [ ] **~Copyable**
@@ -135,3 +134,4 @@
 - [x] **@EnvironmentObject** → [[@EnvironmentObject]] (2026-11-11)
 - [x] **@Environment / EnvironmentValues / EnvironmentKey** → [[@Environment]] (2026-11-11)
 - [x] **클로저 (Closure)** → [[클로저 (Closure)]] (2026-11-17)
+- [x] **weak / unowned** → [[weak]], [[unowned]] (2026-11-18)
