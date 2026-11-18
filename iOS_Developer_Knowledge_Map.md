@@ -176,8 +176,8 @@
 - 메모리 관리
     - [[ARC (Automatic Reference Counting)|ARC]]
     - strong reference
-    - weak reference
-    - unowned reference
+    - [[weak|weak reference]]
+    - [[unowned|unowned reference]]
     - retain cycle
     - capture list
     - [[값 의미론 (Value Semantics)|copy-on-write]]
@@ -1337,7 +1337,7 @@
     - [[값 의미론 (Value Semantics)|copy-on-write]]
     - protocol vs inheritance
     - generic vs existential
-    - weak vs unowned
+    - [[unowned#weak과 unowned 중 고르기|weak vs unowned]]
     - retain cycle 사례
 - 비동기와 동시성
     - DispatchQueue vs OperationQueue
