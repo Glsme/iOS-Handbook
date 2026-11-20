@@ -1,6 +1,9 @@
 [
   "obsidian-plugin-update-tracker",
-  "make-md",
-  "calendar",
-  "obsidian-git"
+  "obsidian-git",
+  "folder-notes",
+  "obsidian-spaced-repetition",
+  "obsidian-dangling-links",
+  "homepage",
+  "shiki-highlighter"
 ]

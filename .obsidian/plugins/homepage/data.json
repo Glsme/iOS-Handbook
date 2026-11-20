@@ -1,0 +1,13 @@
+{
+  "version": 5,
+  "homepages": {
+    "Main Homepage": {
+      "value": "iOS_Developer_Knowledge_Map.md",
+      "kind": "File",
+      "openOnStartup": true,
+      "openMode": "Keep open notes",
+      "manualOpenMode": "Keep open notes"
+    }
+  },
+  "separateMobile": false
+}
