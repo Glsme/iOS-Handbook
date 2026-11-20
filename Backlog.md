@@ -91,7 +91,6 @@
 
 - [ ] **강한 참조 순환 (Strong Reference Cycle)**
 - [ ] **힙과 스택**
-- [ ] **side table**
 - [ ] **~Copyable**
 
 #### Swift Concurrency
@@ -135,3 +134,4 @@
 - [x] **@Environment / EnvironmentValues / EnvironmentKey** → [[@Environment]] (2026-11-11)
 - [x] **클로저 (Closure)** → [[클로저 (Closure)]] (2026-11-17)
 - [x] **weak / unowned** → [[weak]], [[unowned]] (2026-11-18)
+- [x] **side table** → [[side table]] (2026-11-20)
